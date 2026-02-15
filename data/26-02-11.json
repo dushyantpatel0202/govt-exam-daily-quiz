@@ -1,0 +1,277 @@
+{
+  "date": "February 11, 2026",
+  "category": "Current Affairs",
+  "difficulty": "Medium",
+  "questions": [
+    {
+      "q": "What is India's rank in the Global Firepower Index 2026?",
+      "options": ["1st", "2nd", "3rd", "4th"],
+      "correct": 3,
+      "rationale": "India remains the 4th most powerful military globally, trailing only the US, Russia, and China.",
+      "topic": "Global Firepower Index",
+      "difficulty": "Easy"
+    },
+    {
+      "q": "Which state presented a budget of ₹9.13 Lakh Crore for 2026-27?",
+      "options": ["Maharashtra", "Uttar Pradesh", "Gujarat", "Madhya Pradesh"],
+      "correct": 1,
+      "rationale": "Uttar Pradesh presented this record-breaking budget focusing on infrastructure and agriculture.",
+      "topic": "Budget",
+      "difficulty": "Medium"
+    },
+    
+  {
+    "q": "What is the total outlay of the Uttar Pradesh State Budget presented for the fiscal year 2026-27?",
+    "options": ["₹7.50 Lakh Crore", "₹8.12 Lakh Crore", "₹9.13 Lakh Crore", "₹10.05 Lakh Crore"],
+    "correct": 2,
+    "rationale": "Finance Minister Suresh Khanna presented a record-breaking budget of ₹9,12,696.35 crore (approx ₹9.13 lakh crore), marking a 12.2% increase from the previous year.",
+    "topic": "State Budget",
+    "difficulty": "Medium"
+  },
+  {
+    "q": "What is the theme for the International Day of Women and Girls in Science 2026, observed on February 11?",
+    "options": [
+      "Women in Science Leadership",
+      "Synergizing AI, Social Science, STEM and Finance",
+      "Equality and Parity in Science",
+      "Breaking Barriers in Space Research"
+    ],
+    "correct": 1,
+    "rationale": "The 2026 theme focuses on 'Synergizing AI, Social Science, STEM and Finance: Building Inclusive Futures for Women and Girls.'",
+    "topic": "Important Days",
+    "difficulty": "Hard"
+  },
+  {
+    "q": "India recently defeated which country 4-0 to win the SAFF U-19 Women’s Championship 2026?",
+    "options": ["Nepal", "Sri Lanka", "Bangladesh", "Bhutan"],
+    "correct": 2,
+    "rationale": "India secured the title by defeating Bangladesh 4-0 in the final held at Pokhara, Nepal.",
+    "topic": "Sports",
+    "difficulty": "Easy"
+  },
+  {
+    "q": "According to the newly notified IT rules by MeitY, what is the maximum time allowed for platforms to take down declared illegal content?",
+    "options": ["3 hours", "12 hours", "24 hours", "48 hours"],
+    "correct": 0,
+    "rationale": "The Ministry of Electronics and Information Technology has reduced the takedown timeline for government-flagged illegal content from 24-36 hours to just 3 hours.",
+    "topic": "Polity & Governance",
+    "difficulty": "Medium"
+  },
+  {
+    "q": "Which state has officially become the largest wool producer in India as of February 2026, accounting for 47.5% of national output?",
+    "options": ["Jammu and Kashmir", "Himachal Pradesh", "Rajasthan", "Gujarat"],
+    "correct": 2,
+    "rationale": "Rajasthan has secured the top spot in wool production with 16,013.50 thousand kg, followed by Jammu and Kashmir in second place.",
+    "topic": "Economy/Agriculture",
+    "difficulty": "Medium"
+  },
+  
+  {
+    "q": "What is the official theme for the RBI's Financial Literacy Week 2026?",
+    "options": ["Go Digital, Go Secure", "KYC – Your First Step to Safe Banking", "Financial Literacy – Women's Prosperity", "MSMEs: The Backbone of India"],
+    "correct": 1,
+    "rationale": "The 2026 theme emphasizes Know Your Customer (KYC) as the fundamental step for safe and secure banking practices.",
+    "topic": "Banking Awareness",
+    "difficulty": "Easy"
+  },
+  {
+    "q": "Financial Literacy Week 2026 is being observed by the RBI during which period?",
+    "options": ["February 1–7", "February 9–13", "February 24–28", "March 1–5"],
+    "correct": 1,
+    "rationale": "The 11th edition of the annual Financial Literacy Week is officially scheduled from February 9 to February 13, 2026.",
+    "topic": "Important Events",
+    "difficulty": "Medium"
+  },
+  {
+    "q": "Who inaugurated the national-level campaign for Financial Literacy Week 2026 in Mumbai?",
+    "options": ["Shaktikanta Das", "Nirmala Sitharaman", "Sanjay Malhotra", "M. Rajeshwar Rao"],
+    "correct": 2,
+    "rationale": "RBI Governor Sanjay Malhotra inaugurated the 2026 campaign, focusing on strengthening the digital financial ecosystem.",
+    "topic": "Appointments/Personalities",
+    "difficulty": "Medium"
+  },
+  {
+    "q": "In which year did the Reserve Bank of India start the initiative of observing Financial Literacy Week (FLW)?",
+    "options": ["2014", "2016", "2018", "2020"],
+    "correct": 1,
+    "rationale": "RBI has been observing FLW every year since 2016 to promote essential financial education among the masses.",
+    "topic": "Static Banking",
+    "difficulty": "Hard"
+  },
+  {
+    "q": "Which facility is being promoted during FLW 2026 to allow customers to perform KYC only once for all financial entities?",
+    "options": ["Aadhaar Vault", "CIBIL Registry", "Central KYC Records Registry (CKYCR)", "Digital Locker"],
+    "correct": 2,
+    "rationale": "CKYC allows a customer to submit documents once, which can then be digitally accessed by other financial institutions with the customer's consent.",
+    "topic": "Banking Technology",
+    "difficulty": "Medium"
+  },
+  {
+    "q": "The RBI is warning the public against 'Money Mules' during FLW 2026. What does this term refer to?",
+    "options": ["People who take loans they cannot repay", "People who lend money at illegal interest rates", "Individuals who allow their accounts to be used to move illegal funds", "Customers who refuse to update their KYC"],
+    "correct": 2,
+    "rationale": "Money mules are individuals used by criminals to launder or move illicit funds through their personal bank accounts.",
+    "topic": "Cyber Security/Banking",
+    "difficulty": "Hard"
+  },
+  {
+    "q": "According to reports during FLW 2026, which state topped the re-KYC compliance list with 51% coverage?",
+    "options": ["Kerala", "Jharkhand", "Tamil Nadu", "Maharashtra"],
+    "correct": 1,
+    "rationale": "Jharkhand was highlighted as the top performer in re-KYC compliance metrics during the 2026 literacy drive.",
+    "topic": "State News",
+    "difficulty": "Hard"
+  },
+  {
+    "q": "Which campaign at the Gram Panchayat level served as the precursor to the efforts seen in FLW 2026?",
+    "options": ["Digital India Week", "Financial Inclusion Saturation Campaign", "Gram Swaraj Abhiyan", "Jan Dhan Darshak"],
+    "correct": 1,
+    "rationale": "The 2026 FLW builds on the groundwork laid by the Financial Inclusion Saturation Campaign conducted in previous months.",
+    "topic": "Government Schemes",
+    "difficulty": "Medium"
+  },
+  {
+  "q": "Which of the following conditions is mandatory under Article 94 before a resolution for the removal of the Speaker of Lok Sabha can be moved?",
+  "options": [
+    "Prior approval of the President",
+    "A 14-day advance notice in writing",
+    "A 7-day advance notice in writing",
+    "Approval from the Rajya Sabha Chairman"
+  ],
+  "correct": 1,
+  "rationale": "Article 94 (c) specifies that no resolution for the removal of the Speaker or Deputy Speaker shall be moved unless at least 14 days' notice has been given of the intention to move the resolution."
+},
+{
+  "q": "As of February 2026, the Government of India has accepted the recommendations of the 16th Finance Commission. Who is the Chairman of this Commission?",
+  "options": ["Arvind Panagariya", "N.K. Singh", "V. Anantha Nageswaran", "Shaktikanta Das"],
+  "correct": 0,
+  "rationale": "Dr. Arvind Panagariya is the Chairman of the 16th Finance Commission, which submitted its report for the 2026-2031 period to President Droupadi Murmu in late 2025."
+},
+{
+  "q": "Based on the 16th Finance Commission report tabled in February 2026, what is the recommended vertical devolution of taxes from the Centre to the States for the period 2026-2031?",
+  "options": ["32%", "41%", "42%", "45%"],
+  "correct": 1,
+  "rationale": "The 16th Finance Commission, led by Arvind Panagariya, recommended maintaining the vertical share of devolution at 41%, which the Government accepted in the Union Budget 2026-27."
+},
+{
+    "q": "Which international organization approved a $182 million loan for flooding and riverbank erosion management in Assam in February 2026?",
+    "options": [
+        "International Monetary Fund (IMF)", 
+        "New Development Bank (NDB)", 
+        "World Bank", 
+        "Asian Development Bank (ADB)"
+    ],
+    "correct": 3,
+    "rationale": "On February 10, 2026, the ADB approved $182 million in additional financing for the 'Climate Resilient Brahmaputra Integrated Flood and Riverbank Erosion Risk Management Project' to protect high-risk communities in Assam."
+},
+{
+    "q": "On February 11, 2026, which international organization approved a $245 million loan for the 'Resilient Action for Development and Disaster Recovery' project in Himachal Pradesh?",
+    "options": ["World Bank", "ADB", "AIIB", "United Nations"],
+    "correct": 0,
+    "rationale": "The World Bank approved $245 million to help Himachal Pradesh rebuild infrastructure resilient to extreme weather events like those seen in the 2033 and 2025 monsoon seasons."
+},
+{
+    "q": "What is the new upwardly revised Q1 FY27 GDP growth forecast for India as per the RBI?",
+    "options": ["6.9%", "6.5%", "6.7%", "7.2%"],
+    "correct": 0,
+    "rationale": "In the February 2026 monetary policy meeting, RBI Governor Sanjay Malhotra revised the GDP growth projection for the first quarter of FY27 (April-June 2026) upward to 6.9%, compared to the previous estimate of 6.7%. This revision reflects strong domestic drivers like private consumption and fixed investment."
+},
+{
+  "q": "In February 2026, India signed a 'Joint Declaration of Intent' to boost defense industrial cooperation and a five-year roadmap with which European country?",
+  "options": ["Spain", "Germany", "Greece", "Italy"],
+  "correct": 2,
+  "rationale": "On February 9, 2026, India and Greece signed a Joint Declaration of Intent to strengthen defense industrial collaboration between 'Aatmanirbhar Bharat' and Greece's 'Agenda 2030'."
+},
+{
+  "q": "Which ministry is responsible for notifying the 2026 amendments to the Information Technology (Intermediary Guidelines) Rules?",
+  "options": [
+    "Ministry of Home Affairs",
+    "Ministry of Science and Technology",
+    "Ministry of Information and Broadcasting",
+    "Ministry of Electronics and Information Technology (MeitY)"
+  ],
+  "correct": 3,
+  "rationale": "MeitY notified the IT Amendment Rules, 2026, on February 10, 2026, specifically to regulate synthetically generated information (SGI) and deepfakes."
+},
+{
+    "q": "What is the primary purpose of the 'Bilateral Military Cooperation Plan for 2026' exchanged between India and Greece?",
+    "options": [
+      "To bypass the Suez Canal for all trade",
+      "To outline future military engagements and joint exercises between the armed forces",
+      "To establish a common currency for trade",
+      "To annex territory in the Mediterranean"
+    ],
+    "correct": 1,
+    "rationale": "Exchanged on February 9, 2026, the Bilateral Military Cooperation Plan charts the course for future engagements, training, and joint exercises between the Indian and Hellenic Armed Forces."
+  },
+  {
+    "q": "Under Article 94 of the Indian Constitution, how can the Speaker of the Lok Sabha be removed from office?",
+    "options": [
+      "By the President of India",
+      "By a two-thirds majority of both Houses of Parliament",
+      "By the Supreme Court of India",
+      "By a resolution passed by a majority of all the then members of the Lok Sabha"
+    ],
+    "correct": 3,
+    "rationale": "Article 94(c) specifies that a Speaker can be removed by a resolution passed by a majority of all the 'then members' (effective majority) of the Lok Sabha, provided a 14-day notice is given."
+  },
+  {
+    "q": "Which international organization approved a $182 million loan for flooding and riverbank erosion management in Assam in February 2026?",
+    "options": [
+      "International Monetary Fund (IMF)",
+      "New Development Bank (NDB)",
+      "World Bank",
+      "Asian Development Bank (ADB)"
+    ],
+    "correct": 3,
+    "rationale": "The Asian Development Bank (ADB) approved this additional $182 million loan on February 10, 2026, to scale up climate-resilient flood protection along the Brahmaputra River."
+  },
+  {
+    "q": "What is the new upwardly revised Q1 FY27 GDP growth forecast for India as per the RBI's February 2026 announcement?",
+    "options": [
+      "6.9%",
+      "6.5%",
+      "6.7%",
+      "7.2%"
+    ],
+    "correct": 0,
+    "rationale": "On February 6, 2026, the RBI upwardly revised the GDP growth forecast for Q1 FY27 to 6.9% from its previous estimate of 6.7%, citing robust farm output and GST rationalisation."
+  },
+  {
+    "q": "India signed a 'Joint Declaration of Intent' to boost defense industrial cooperation with which European country in February 2026?",
+    "options": [
+      "Spain",
+      "Germany",
+      "Greece",
+      "Italy"
+    ],
+    "correct": 2,
+    "rationale": "India and Greece signed a Joint Declaration of Intent on February 9, 2026, to strengthen defense industrial collaboration between 'Aatmanirbhar Bharat' and Greece's 'Agenda 2030'."
+  },
+  {
+    "q": "Which ministry is responsible for notifying the 2026 amendments to the Information Technology (Intermediary Guidelines) Rules?",
+    "options": [
+      "Ministry of Home Affairs",
+      "Ministry of Science and Technology",
+      "Ministry of Information and Broadcasting",
+      "Ministry of Electronics and Information Technology (MeitY)"
+    ],
+    "correct": 3,
+    "rationale": "The Ministry of Electronics and Information Technology (MeitY) notified the IT Amendment Rules, 2026, on February 10, 2026, to legally define and regulate synthetically generated information (SGI) and deepfakes."
+  },
+  {
+    "q": "What is the primary purpose of the 'Bilateral Military Cooperation Plan for 2026' exchanged between India and Greece?",
+    "options": [
+      "To bypass the Suez Canal for all trade",
+      "To outline future military engagements and joint exercises between the armed forces",
+      "To establish a common currency for trade",
+      "To annex territory in the Mediterranean"
+    ],
+    "correct": 1,
+    "rationale": "Exchanged on February 9, 2026, the Bilateral Military Cooperation Plan charts the course for future engagements, training, and joint exercises between the Indian and Hellenic Armed Forces."
+  }
+
+]
+
+  
+}

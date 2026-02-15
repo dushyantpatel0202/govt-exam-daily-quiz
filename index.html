@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Govt Exam Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.02);
+        }
+        
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen p-4 md:p-6">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-800">📚 Daily Govt Exam Quiz</h1>
+                <div class="flex items-center gap-3">
+                    <span class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg font-medium">
+                        Streak: 🔥 0 days
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Date Selection -->
+        <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
+            <div class="flex flex-col md:flex-row gap-4 items-end">
+                <div class="flex-1">
+                    <label for="quiz-date" class="block text-sm font-medium text-gray-600 mb-2">
+                        Select Quiz Date
+                    </label>
+                    <input 
+                        type="date" 
+                        id="quiz-date" 
+                        class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                        value="2026-02-11"
+                    >
+                </div>
+                <div class="flex gap-3">
+                    <button 
+                        onclick="showContent()" 
+                        class="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-3 rounded-xl transition-all hover-scale whitespace-nowrap"
+                    >
+                        📖 Content
+                    </button>
+                    <button 
+                        onclick="loadQuizByDate()" 
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-xl transition-all hover-scale whitespace-nowrap"
+                    >
+                        🚀 Start Quiz
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Display Section -->
+        <div id="content-section" class="hidden">
+            <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">📖 Quiz Content</h2>
+                    <button onclick="closeContent()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-4 py-2 rounded-lg transition-all">
+                        ✕ Close
+                    </button>
+                </div>
+                <div id="content-text" class="prose max-w-none text-gray-700">
+                    <!-- Content will be loaded here -->
+                </div>
+                <div class="mt-6 flex justify-end">
+                    <button onclick="startQuizFromContent()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-xl transition-all hover-scale">
+                        Start Quiz →
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="hidden">
+            <!-- Progress Bar -->
+            <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-sm font-medium text-gray-600">Progress</span>
+                    <span class="text-sm font-medium text-indigo-600" id="progress-percent">0%</span>
+                </div>
+                <div class="w-full bg-gray-100 rounded-full h-2.5">
+                    <div id="progress-bar" class="bg-indigo-600 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <div class="flex justify-between mt-2 text-xs text-gray-500">
+                    <span id="current-question">Question 1</span>
+                    <span id="total-questions">of 10</span>
+                </div>
+            </div>
+
+            <!-- Question Area -->
+            <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-sm font-medium">
+                            Question <span id="question-number">1</span>
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="text-right">
+                            <span class="text-sm text-gray-500">Score</span>
+                            <div class="text-2xl font-bold text-indigo-600">
+                                <span id="score-value">0</span>/<span id="total-score">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="question-area">
+                    <h3 id="q-text" class="text-xl font-semibold text-gray-800 mb-6"></h3>
+                    <div id="options" class="space-y-3"></div>
+                </div>
+
+                <!-- Feedback Area -->
+                <div id="feedback" class="hidden mt-6 p-5 rounded-xl border-l-4" role="alert">
+                    <div id="feedback-text" class="font-medium mb-2"></div>
+                    <div id="rationale" class="text-sm text-gray-600 mt-2"></div>
+                    <div class="flex gap-3 mt-4">
+                        <button 
+                            id="next-btn" 
+                            onclick="nextQuestion()" 
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-5 py-2.5 rounded-lg transition-all"
+                        >
+                            Next Question →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quiz Question Navigator -->
+                <div id="quiz-question-navigator" class="mt-6 p-5 bg-gray-50 rounded-xl">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="text-sm font-medium text-gray-700">Quick Navigation:</h4>
+                        <span class="text-xs text-gray-500">Click any number to jump</span>
+                    </div>
+                    <div id="quiz-question-boxes" class="flex flex-wrap gap-2 max-h-24 overflow-y-auto p-2 hide-scrollbar">
+                        <!-- Question number boxes will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <button onclick="skipQuestion()" class="bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition-all border border-gray-200">
+                    <span class="block text-xl mb-1">⏭️</span>
+                    <span class="text-sm font-medium text-gray-700">Skip</span>
+                </button>
+                <button onclick="markForReview()" class="bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition-all border border-gray-200">
+                    <span class="block text-xl mb-1">🔖</span>
+                    <span class="text-sm font-medium text-gray-700">Review Later</span>
+                </button>
+                <button onclick="showHint()" class="bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition-all border border-gray-200">
+                    <span class="block text-xl mb-1">💡</span>
+                    <span class="text-sm font-medium text-gray-700">Hint</span>
+                </button>
+                <button onclick="toggleTimer()" class="bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition-all border border-gray-200">
+                    <span class="block text-xl mb-1">⏱️</span>
+                    <span class="text-sm font-medium text-gray-700" id="timer-display">00:00</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Review Section -->
+        <div id="review-section" class="hidden">
+            <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">📝 Question Review</h2>
+                    <button onclick="exitReview()" class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold px-6 py-3 rounded-xl transition-all hover-scale shadow-lg hover:shadow-xl">
+                        ← Back to Results
+                    </button>
+                </div>
+
+                <!-- Review Controls -->
+                <div class="flex flex-col md:flex-row gap-4 mb-6">
+                    <!-- Filter Options -->
+                    <div class="flex gap-2">
+                        <button onclick="filterReview('all')" id="filter-all" class="px-3 py-1 rounded-lg text-sm font-medium bg-indigo-600 text-white">
+                            All Questions
+                        </button>
+                        <button onclick="filterReview('wrong')" id="filter-wrong" class="px-3 py-1 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">
+                            Wrong Only
+                        </button>
+                        <button onclick="filterReview('skipped')" id="filter-skipped" class="px-3 py-1 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">
+                            Skipped Only
+                        </button>
+                    </div>
+
+                    <!-- Jump to Question -->
+                    <div class="flex items-center gap-2">
+                        <label for="jump-to-question" class="text-sm text-gray-600">Jump to:</label>
+                        <select id="jump-to-question" onchange="jumpToQuestion(this.value)" class="px-3 py-1 border border-gray-200 rounded-lg text-sm">
+                            <!-- Options will be populated dynamically -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Question Overview -->
+                <div class="mb-6">
+                    <h3 class="text-sm font-medium text-gray-700 mb-3">Question Overview:</h3>
+                    <div id="question-overview" class="flex flex-wrap gap-2">
+                        <!-- Question buttons will be populated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Review Progress -->
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-sm font-medium text-gray-600" id="review-progress">Question 1 of 10</span>
+                    <div class="flex gap-2">
+                        <button onclick="prevReviewQuestion()" id="prev-review-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-lg transition-all disabled:bg-gray-300 disabled:cursor-not-allowed" disabled>
+                            ← Previous
+                        </button>
+                        <button onclick="nextReviewQuestion()" id="next-review-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-lg transition-all disabled:bg-gray-300 disabled:cursor-not-allowed">
+                            Next →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Question Status & Time -->
+                <div class="flex justify-between items-center mb-4">
+                    <span id="question-status" class="px-3 py-1 rounded-full text-sm font-medium"></span>
+                    <span id="question-time" class="text-sm text-gray-500"></span>
+                </div>
+
+                <!-- Review Question Area -->
+                <div id="review-question-area">
+                    <h3 id="review-q-text" class="text-xl font-semibold text-gray-800 mb-6"></h3>
+                    <div id="review-options" class="space-y-3"></div>
+                </div>
+
+                <!-- Review Feedback with Explanation -->
+                <div id="review-feedback" class="mt-6 p-5 rounded-xl border-l-4">
+                    <div id="review-feedback-text" class="font-medium mb-2"></div>
+                    <div id="review-rationale" class="text-sm text-gray-600 mt-2 p-4 bg-blue-50 rounded-lg border border-blue-200"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Dashboard -->
+        <div id="results-dashboard" class="hidden space-y-6">
+            <!-- Congratulations Header -->
+            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-lg p-8 text-white">
+                <div class="text-center">
+                    <span class="text-5xl mb-4 block">🎉</span>
+                    <h2 class="text-3xl font-bold mb-2">You did it! Quiz Complete</h2>
+                    <p class="text-indigo-100">Great job! Here's your performance summary</p>
+                </div>
+            </div>
+
+            <!-- Score Overview -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Score Card -->
+                <div class="bg-white rounded-2xl shadow-sm p-6">
+                    <div class="text-center">
+                        <span class="text-sm text-gray-500 uppercase tracking-wider">Score</span>
+                        <div class="text-4xl font-bold text-indigo-600 my-2">
+                            <span id="final-score">0</span>/<span id="final-total">0</span>
+                        </div>
+                        <div class="inline-flex items-center gap-1 text-sm">
+                            <span class="text-green-500">★</span>
+                            <span id="performance-rating">Above Average</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accuracy Card -->
+                <div class="bg-white rounded-2xl shadow-sm p-6">
+                    <div class="text-center">
+                        <span class="text-sm text-gray-500 uppercase tracking-wider">Accuracy</span>
+                        <div class="text-4xl font-bold text-green-600 my-2">
+                            <span id="accuracy-percent">0</span>%
+                        </div>
+                        <div class="text-sm text-gray-600">
+                            <span id="correct-count">0</span> correct • 
+                            <span id="wrong-count">0</span> wrong • 
+                            <span id="skipped-count">0</span> skipped
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Card -->
+                <div class="bg-white rounded-2xl shadow-sm p-6">
+                    <div class="text-center">
+                        <span class="text-sm text-gray-500 uppercase tracking-wider">Time Taken</span>
+                        <div class="text-4xl font-bold text-gray-700 my-2">
+                            <span id="time-taken">00:00</span>
+                        </div>
+                        <div class="text-sm text-gray-600" id="avg-time">Avg. 0s per question</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Chart -->
+            <div class="bg-white rounded-2xl shadow-sm p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">📊 Performance Analysis</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <canvas id="performance-chart"></canvas>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-gray-600">Right</span>
+                                <span class="font-bold text-green-600" id="chart-right">0</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-2">
+                                <div id="right-bar" class="bg-green-500 h-2 rounded-full" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-gray-600">Wrong</span>
+                                <span class="font-bold text-red-600" id="chart-wrong">0</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-2">
+                                <div id="wrong-bar" class="bg-red-500 h-2 rounded-full" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-gray-600">Skipped</span>
+                                <span class="font-bold text-yellow-600" id="chart-skipped">0</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-2">
+                                <div id="skipped-bar" class="bg-yellow-500 h-2 rounded-full" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strengths and Growth Areas -->
+            <div class="bg-white rounded-2xl shadow-sm p-6">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">🎯 Strengths and Growth Areas</h3>
+                        <p class="text-sm text-gray-500 mt-1">
+                            Get a summary of your key strengths and discover areas where you can focus your studies.
+                        </p>
+                    </div>
+                    <button onclick="analyzePerformance()" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 px-4 py-2 rounded-lg text-sm font-medium transition-all">
+                        Analyse my performance →
+                    </button>
+                </div>
+                <div id="strengths-areas" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Dynamic content will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Review Questions -->
+            <div class="bg-white rounded-2xl shadow-sm p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">📝 Review Questions</h3>
+                <p class="text-sm text-gray-500 mb-4">
+                    Review all questions to see your answers and learn from mistakes with detailed explanations.
+                </p>
+                <button onclick="startReview()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-xl transition-all hover-scale">
+                    Review All Questions →
+                </button>
+            </div>
+
+            <!-- Learning Tools -->
+            <div class="bg-white rounded-2xl shadow-sm p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">📚 Keep Learning</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="border border-gray-200 rounded-xl p-5 hover:shadow-md transition-all">
+                        <span class="text-3xl mb-3 block">🃏</span>
+                        <h4 class="font-semibold text-gray-800 mb-2">Flashcards</h4>
+                        <p class="text-sm text-gray-500 mb-4">
+                            Create a complete set of flashcards from all your quiz material.
+                        </p>
+                        <button onclick="generateFlashcards()" class="text-indigo-600 hover:text-indigo-700 text-sm font-medium">
+                            Generate →
+                        </button>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-xl p-5 hover:shadow-md transition-all">
+                        <span class="text-3xl mb-3 block">📖</span>
+                        <h4 class="font-semibold text-gray-800 mb-2">Study Guide</h4>
+                        <p class="text-sm text-gray-500 mb-4">
+                            Generate a comprehensive study guide for in-depth review.
+                        </p>
+                        <button onclick="generateStudyGuide()" class="text-indigo-600 hover:text-indigo-700 text-sm font-medium">
+                            Generate →
+                        </button>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-xl p-5 hover:shadow-md transition-all">
+                        <span class="text-3xl mb-3 block">📝</span>
+                        <h4 class="font-semibold text-gray-800 mb-2">Review Quiz</h4>
+                        <p class="text-sm text-gray-500 mb-4">
+                            More questions based on your weak areas.
+                        </p>
+                        <button onclick="generateReviewQuiz()" class="text-indigo-600 hover:text-indigo-700 text-sm font-medium">
+                            Start Review →
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
