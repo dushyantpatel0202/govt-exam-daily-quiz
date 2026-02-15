@@ -54,6 +54,9 @@ async function loadQuizByDate() {
         }
 
         const quizData = await response.json();
+        // ADD THIS LINE to hide the content page if it was open
+        const contentSection = document.getElementById('content-section');
+        if (contentSection) contentSection.classList.add('hidden');
         
         // Reset quiz state
         currentQuiz = quizData;
@@ -129,14 +132,14 @@ async function showContent() {
         currentQuiz = quizData;
         
         // Hide other sections
-        const quizContainer = document.getElementById('quiz-container');
-        if (quizContainer) quizContainer.classList.add('hidden');
+        //const quizContainer = document.getElementById('quiz-container');
+        //if (quizContainer) quizContainer.classList.add('hidden');
         
-        const resultsDashboard = document.getElementById('results-dashboard');
-        if (resultsDashboard) resultsDashboard.classList.add('hidden');
+        //const resultsDashboard = document.getElementById('results-dashboard');
+        //if (resultsDashboard) resultsDashboard.classList.add('hidden');
         
-        const reviewSection = document.getElementById('review-section');
-        if (reviewSection) reviewSection.classList.add('hidden');
+        //const reviewSection = document.getElementById('review-section');
+        //if (reviewSection) reviewSection.classList.add('hidden');
         
         // Show content section
         const contentSection = document.getElementById('content-section');
