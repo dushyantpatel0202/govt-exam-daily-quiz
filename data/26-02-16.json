@@ -5,6 +5,42 @@
   "content": "<h3>📚 Study Material - Today in History (Feb 15) & Cultural Heritage</h3><p>This study material covers significant historical milestones, scientific pioneers, and the architectural heritage of India’s most sacred temples, which are frequently asked in Static GK sections.</p><h4>🚀 Science & Space Milestones:</h4><ul><li><b>ISRO's World Record (2017):</b> On Feb 15, India launched 104 satellites using PSLV-C37, demonstrating global leadership in space technology.</li><li><b>Galileo Galilei:</b> Born today in 1564, known as the 'Father of Modern Science' for his work in observational astronomy and physics.</li></ul><h4>🏛️ Temple Architecture & Culture:</h4><ul><li><b>Kalinga Architecture:</b> Exemplified by the <b>Lingaraj Temple</b> (Odisha). It is a sub-style of Nagara architecture featuring the <i>Deula</i> (sanctum) and <i>Jagamohana</i> (assembly hall).</li><li><b>Mahakaleshwar (Ujjain):</b> The only 'Dakshinamukhi' (South-facing) Jyotirlinga. Famous for the unique <b>Bhasma Aarti</b>.</li><li><b>Jyotirlingas in India:</b> There are 12 total. Maharashtra holds the maximum (3), while Madhya Pradesh and Gujarat hold 2 each.</li></ul><h4>📜 Modern History & Literature:</h4><ul><li><b>Mirza Ghalib:</b> The legendary Urdu poet of the Mughal court (contemporary of Bahadur Shah Zafar) who passed away on this day in 1869.</li><li><b>Fall of Singapore (1942):</b> A critical WWII event that eventually led to the formation of the <b>Indian National Army (INA)</b> by Indian Prisoners of War.</li></ul><h4>Important Topics for Exams:</h4><ul><li>ISRO Space Missions (PSLV vs GSLV)</li><li>Temple Architecture Styles (Nagara, Dravida, Kalinga)</li><li>12 Jyotirlingas and their States/Rivers</li><li>Prominent figures of the 1857 Revolt (Mirza Ghalib context)</li></ul>",
   "questions": [
     {
+    "category": "Technology & National",
+    "q": "प्रधानमंत्री ने 16 फरवरी 2026 को 'इंडिया एआई इम्पैक्ट एक्सपो' का उद्घाटन कहाँ किया? (Where did the PM inaugurate the 'India AI Impact Expo' on 16 February 2026?)",
+    "options": [
+      "बैंगलोर (Bangalore)",
+      "भारत मंडपम, नई दिल्ली (Bharat Mandapam, New Delhi)",
+      "हैदराबाद (Hyderabad)",
+      "मुंबई (Mumbai)"
+    ],
+    "correct": 1,
+    "rationale": "PM Modi inaugurated the expo at Bharat Mandapam. The event featured AI solutions across three 'Chakras': People, Planet, and Progress, focusing on the Global South."
+  },
+  {
+    "category": "Defense",
+    "q": "In Feb 2026, the Defence Acquisition Council (DAC) approved the procurement of 114 additional Rafale fighter jets from which country?",
+    "options": [
+      "Russia",
+      "USA",
+      "France",
+      "Israel"
+    ],
+    "correct": 2,
+    "rationale": "The DAC, chaired by Rajnath Singh, approved a major deal worth ₹3.25 lakh crore for 114 Rafale jets from France to strengthen the Indian Air Force's operational readiness."
+  },
+  {
+    "category": "Sports",
+    "q": "Who was named 'Player of the Match' in the India vs Pakistan T20 World Cup match held on 15 Feb 2026?",
+    "options": [
+      "Suryakumar Yadav",
+      "Ishan Kishan",
+      "Jasprit Bumrah",
+      "Hardik Pandya"
+    ],
+    "correct": 1,
+    "rationale": "Ishan Kishan scored a dominant 77 runs off 40 balls, leading India to a 61-run victory and securing their spot in the Super Eight stage."
+  },
+    {
       "q": "15 फरवरी, 2017 को ISRO ने PSLV-C37 रॉकेट का उपयोग करके एक ही मिशन में कितने उपग्रह लॉन्च करके विश्व रिकॉर्ड बनाया था? (On February 15, 2017, ISRO created a world record by launching how many satellites in a single mission using the PSLV-C37 rocket?)",
       "options": [
         "75",
