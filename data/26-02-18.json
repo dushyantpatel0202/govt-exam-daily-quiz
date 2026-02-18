@@ -1,0 +1,118 @@
+{
+  "date": "February 18, 2026",
+  "category": "100 MCQ Practice Set - Revision",
+  "difficulty": "Medium",
+  "content": "<h3>📚 Study Material - Revision Set (100 MCQs Focus)</h3><p>This comprehensive study material consolidates key data points from the 100 MCQs practice set, focusing on governance, geography, and global standings.</p><h4>⚖️ Governance & Law:</h4><ul><li><b>Constitutional Amendments:</b> Understanding Article 368 (Part XX) is crucial for the amendment process. Key updates include the 101st (GST), 103rd (EWS), and 104th (SC/ST reservation extension).</li><li><b>GST Framework:</b> The Goods and Services Tax (GST) was implemented on July 1, 2017, following the 101st Amendment.</li></ul><h4>🌍 Global Rankings 2026:</h4><ul><li><b>Military and Innovation:</b> India holds the 4th position in military strength (Global Firepower Index) and 38th in innovation (Global Innovation Index).</li><li><b>Socio-Economic indices:</b> India's standing is reflected in rankings such as the Henley Passport Index (80th), Global Hunger Index (102nd), and Press Freedom Index (160th).</li></ul><h4>🏞️ Geography & Science:</h4><ul><li><b>River Systems:</b> The Brahmaputra originates in Tibet (Sangpo), enters India through Arunachal Pradesh (Dihang), and flows into Bangladesh as the Jamuna.</li><li><b>Technological Initiatives:</b> The launch of Bodhan AI by IIT Madras, with a budget of ₹400 crore, signifies major progress in AI infrastructure.</li></ul>",
+  "questions": [
+    {
+      "q": "संविधान संशोधन का उल्लेख किस अनुच्छेद में है? (Constitutional Amendments are mentioned in which Article?)",
+      "options": [
+        "356",
+        "368",
+        "370",
+        "324"
+      ],
+      "correct": 1,
+      "rationale": "भारतीय संविधान का अनुच्छेद 368 संसद को संविधान में संशोधन करने की शक्ति प्रदान करता है। (Article 368 of the Constitution provides the procedure for amendments.)"
+    },
+    {
+      "q": "101वां संशोधन किससे संबंधित है? (The 101st Amendment is related to:)",
+      "options": [
+        "EWS Reservation",
+        "GST",
+        "Panchayati Raj",
+        "Anti-Defection"
+      ],
+      "correct": 1,
+      "rationale": "101वें संवैधानिक संशोधन अधिनियम, 2016 के माध्यम से भारत में वस्तु एवं सेवा कर (GST) लागू किया गया था। (The 101st Amendment Act, 2016 introduced the Goods and Services Tax (GST).)"
+    },
+    {
+      "q": "ब्रह्मपुत्र का उद्गम कहाँ होता है? (Brahmaputra originates in:)",
+      "options": [
+        "Nepal",
+        "Bhutan",
+        "Tibet",
+        "India"
+      ],
+      "correct": 2,
+      "rationale": "ब्रह्मपुत्र नदी का उद्गम तिब्बत में मानसरोवर झील के पास चेमायुंगडुंग ग्लेशियर से होता है। (The Brahmaputra river originates in the Chemayungdung glacier in Tibet.)"
+    },
+    {
+      "q": "बांग्लादेश में ब्रह्मपुत्र को क्या कहा जाता है? (In Bangladesh, Brahmaputra is called:)",
+      "options": [
+        "Meghna",
+        "Padma",
+        "Jamuna",
+        "Teesta"
+      ],
+      "correct": 2,
+      "rationale": "जब ब्रह्मपुत्र नदी बांग्लादेश में प्रवेश करती है, तो इसे जमुना नदी के नाम से जाना जाता है। (When the Brahmaputra enters Bangladesh, it is known as the Jamuna River.)"
+    },
+    {
+      "q": "ग्लोबल फायरपावर इंडेक्स 2026 में भारत की रैंक क्या है? (What is India's rank in the Global Firepower Index 2026?)",
+      "options": [
+        "3rd",
+        "4th",
+        "5th",
+        "6th"
+      ],
+      "correct": 1,
+      "rationale": "सैन्य शक्ति के मामले में भारत विश्व स्तर पर चौथे स्थान पर बरकरार है। (India is ranked 4th in the Global Firepower Index 2026.)"
+    },
+    {
+      "q": "हेनले पासपोर्ट इंडेक्स 2026 में भारत की रैंक क्या है? (What is India's rank in the Henley Passport Index 2026?)",
+      "options": [
+        "70",
+        "75",
+        "80",
+        "85"
+      ],
+      "correct": 2,
+      "rationale": "वर्ष 2026 के लिए हेनले पासपोर्ट इंडेक्स में भारत को 80वें स्थान पर रखा गया है। (India is ranked 80th in the Henley Passport Index 2026.)"
+    },
+    {
+      "q": "Bodhan AI किसके द्वारा होस्ट किया गया है? (Bodhan AI is hosted by:)",
+      "options": [
+        "IIT Delhi",
+        "IIT Bombay",
+        "IIT Madras",
+        "IISc"
+      ],
+      "correct": 2,
+      "rationale": "बोधन एआई (Bodhan AI) प्लेटफॉर्म को आईआईटी मद्रास द्वारा होस्ट और विकसित किया गया है। (Bodhan AI is an initiative hosted by IIT Madras.)"
+    },
+    {
+      "q": "एशियाई राइफल/पिस्तौल चैंपियनशिप 2026 में भारत ने कुल कितने पदक जीते? (How many total medals did India win at the Asian Rifle/Pistol Championship 2026?)",
+      "options": [
+        "84",
+        "90",
+        "94",
+        "104"
+      ],
+      "correct": 2,
+      "rationale": "भारत ने एशियाई राइफल/पिस्तौल चैंपियनशिप 2026 में शानदार प्रदर्शन करते हुए कुल 94 पदक जीते। (India won a total of 94 medals at the Asian Rifle/Pistol Championship 2026.)"
+    },
+    {
+      "q": "शहरी चुनौती कोष (Urban Challenge Fund) किस मंत्रालय के तहत स्वीकृत किया गया था? (Urban Challenge Fund was approved under which Ministry?)",
+      "options": [
+        "Finance",
+        "Housing and Urban Affairs",
+        "Rural Development",
+        "Commerce"
+      ],
+      "correct": 1,
+      "rationale": "यह फंड आवास और शहरी मामलों के मंत्रालय (MoHUA) के अंतर्गत आता है। (The fund is under the Ministry of Housing and Urban Affairs.)"
+    },
+    {
+      "q": "विश्व रेडियो दिवस कब मनाया जाता है? (World Radio Day is observed on:)",
+      "options": [
+        "11 Feb",
+        "12 Feb",
+        "13 Feb",
+        "14 Feb"
+      ],
+      "correct": 2,
+      "rationale": "रेडियो के महत्व को रेखांकित करने के लिए हर साल 13 फरवरी को विश्व रेडियो दिवस मनाया जाता है। (World Radio Day is celebrated on February 13.)"
+    }
+  ]
+}
