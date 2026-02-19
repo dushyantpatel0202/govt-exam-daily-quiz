@@ -37,6 +37,116 @@ const QUIZ_CATEGORIES = {
     'Current Affairs': ['current', 'recent', '2026', '2025', 'india']
 };
 
+function getFilenameFromDate(selectedDate) {
+    const dateParts = selectedDate.split('-');
+    const yearShort = dateParts[0].substring(2);
+    return `${yearShort}-${dateParts[1]}-${dateParts[2]}.json`;
+}
+
+function formatDisplayDate(dateString) {
+    return new Date(`${dateString}T00:00:00`).toLocaleDateString('en-IN', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+}
+
+function formatShortDate(dateString) {
+    const date = new Date(`${dateString}T00:00:00`);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = String(date.getFullYear()).slice(-2);
+    return `${day}-${month}-${year}`;
+}
+
+async function fetchQuizDataByDate(selectedDate) {
+    try {
+        const filename = getFilenameFromDate(selectedDate);
+        const response = await fetch(`./data/${filename}`, { cache: 'no-store' });
+        if (!response.ok) return null;
+        return await response.json();
+    } catch (error) {
+        return null;
+    }
+}
+
+function hideUnavailableSection() {
+    const unavailableSection = document.getElementById('unavailable-section');
+    if (unavailableSection) unavailableSection.classList.add('hidden');
+}
+
+async function getLastAvailableQuizDates(fromDate, count = 4) {
+    const results = [];
+    const startDate = new Date(`${fromDate}T00:00:00`);
+
+    if (Number.isNaN(startDate.getTime())) {
+        return results;
+    }
+
+    const cursor = new Date(startDate);
+    cursor.setDate(cursor.getDate() - 1);
+
+    let attempts = 0;
+    const maxAttempts = 90;
+
+    while (results.length < count && attempts < maxAttempts) {
+        const isoDate = cursor.toISOString().slice(0, 10);
+        const quizData = await fetchQuizDataByDate(isoDate);
+        if (quizData) {
+            results.push(isoDate);
+        }
+        cursor.setDate(cursor.getDate() - 1);
+        attempts++;
+    }
+
+    return results;
+}
+
+function playQuizForDate(dateString) {
+    const dateInput = document.getElementById('quiz-date');
+    if (dateInput) {
+        dateInput.value = dateString;
+    }
+    hideUnavailableSection();
+    loadQuizByDate();
+}
+
+async function showUnavailableSection(selectedDate) {
+    const unavailableSection = document.getElementById('unavailable-section');
+    const unavailableMessage = document.getElementById('unavailable-message');
+    const quickButtonsContainer = document.getElementById('last-4-days-buttons');
+
+    const quizContainer = document.getElementById('quiz-container');
+    if (quizContainer) quizContainer.classList.add('hidden');
+
+    const contentSection = document.getElementById('content-section');
+    if (contentSection) contentSection.classList.add('hidden');
+
+    if (unavailableMessage) {
+        unavailableMessage.innerText = `We will be uploading soon for ${formatDisplayDate(selectedDate)}.`;
+    }
+
+    if (quickButtonsContainer) {
+        quickButtonsContainer.innerHTML = '<p class="text-sm text-gray-500">Checking recent quizzes...</p>';
+        const recentDates = await getLastAvailableQuizDates(selectedDate, 4);
+
+        if (!recentDates.length) {
+            quickButtonsContainer.innerHTML = '<p class="text-sm text-gray-500">No recent quizzes found.</p>';
+        } else {
+            quickButtonsContainer.innerHTML = recentDates.map((dateString) => `
+                <button
+                    onclick="playQuizForDate('${dateString}')"
+                    class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-medium px-4 py-2 rounded-lg transition-all"
+                >
+                    ▶ Play ${formatShortDate(dateString)}
+                </button>
+            `).join('');
+        }
+    }
+
+    if (unavailableSection) unavailableSection.classList.remove('hidden');
+}
+
 // Initialize quiz
 async function loadQuizByDate() {
     const selectedDate = document.getElementById('quiz-date').value;
@@ -47,17 +157,13 @@ async function loadQuizByDate() {
     }
 
     try {
-        const dateParts = selectedDate.split('-');
-        const yearShort = dateParts[0].substring(2);
-        const filename = `${yearShort}-${dateParts[1]}-${dateParts[2]}.json`;
-        
-        const response = await fetch(`./data/${filename}`);
-        
-        if (!response.ok) {
-            throw new Error("No quiz found for this date.");
+        const quizData = await fetchQuizDataByDate(selectedDate);
+        if (!quizData) {
+            await showUnavailableSection(selectedDate);
+            return;
         }
 
-        const quizData = await response.json();
+        hideUnavailableSection();
         // ADD THIS LINE to hide the content page if it was open
         const contentSection = document.getElementById('content-section');
         if (contentSection) contentSection.classList.add('hidden');
@@ -106,7 +212,7 @@ async function loadQuizByDate() {
         startQuiz();
         
     } catch (error) {
-        alert(error.message);
+        alert('Unable to load quiz right now. Please try again.');
     }
 }
 
@@ -120,17 +226,13 @@ async function showContent() {
     }
 
     try {
-        const dateParts = selectedDate.split('-');
-        const yearShort = dateParts[0].substring(2);
-        const filename = `${yearShort}-${dateParts[1]}-${dateParts[2]}.json`;
-        
-        const response = await fetch(`./data/${filename}`);
-        
-        if (!response.ok) {
-            throw new Error("No content found for this date.");
+        const quizData = await fetchQuizDataByDate(selectedDate);
+        if (!quizData) {
+            await showUnavailableSection(selectedDate);
+            return;
         }
 
-        const quizData = await response.json();
+        hideUnavailableSection();
         
         // Store the quiz data for later use
         currentQuiz = quizData;
@@ -287,7 +389,7 @@ async function showContent() {
         }
         
     } catch (error) {
-        alert(error.message);
+        alert('Unable to load content right now. Please try again.');
     }
 }
 
@@ -1590,6 +1692,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const dateInput = document.getElementById('quiz-date');
     if (dateInput) {
         dateInput.value = `${year}-${month}-${day}`;
+        dateInput.addEventListener('change', hideUnavailableSection);
     }
 });
 
