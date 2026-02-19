@@ -22,6 +22,10 @@ let isReviewMode = false;
 let currentReviewIndex = 0;
 let reviewFilter = 'all'; // 'all', 'wrong', 'skipped'
 let filteredReviewIndices = [];
+let toastTimeout = null;
+const pdfBadgePaddingTop = -7;
+const pdfReviewHeadingFontSize = 12;
+const pdfReviewHeadingNudge = -8;
 
 // Quiz categories for analysis
 const QUIZ_CATEGORIES = {
@@ -1332,6 +1336,247 @@ function populateJumpToDropdown() {
         option.innerText = `Question ${i + 1}`;
         jumpSelect.appendChild(option);
     }
+}
+
+async function downloadReviewAsPDF() {
+    if (!currentQuiz || !Array.isArray(currentQuiz.questions) || currentQuiz.questions.length === 0) {
+        alert('Please complete a quiz first!');
+        return;
+    }
+
+    if (!window.jspdf || !window.jspdf.jsPDF) {
+        alert('PDF library failed to load. Please refresh and try again.');
+        return;
+    }
+
+    if (!window.html2canvas) {
+        showToast('❌ PDF renderer failed to load. Refresh and try again.', 'error');
+        return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const renderScale = Math.min(4, Math.max(3, Math.ceil(window.devicePixelRatio || 1) * 2));
+    const imageFormat = 'PNG';
+
+    const renderContainer = document.createElement('div');
+    renderContainer.style.position = 'fixed';
+    renderContainer.style.left = '-10000px';
+    renderContainer.style.top = '0';
+    renderContainer.style.width = '1024px';
+    renderContainer.style.background = '#f9fafb';
+    renderContainer.style.padding = '24px';
+    renderContainer.innerHTML = buildReviewHTMLForPDF();
+    document.body.appendChild(renderContainer);
+
+    const fileDate = (document.getElementById('quiz-date')?.value || 'quiz-result').replace(/[^0-9-]/g, '');
+
+    try {
+        showToast('📄 Preparing PDF...');
+
+        const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+        const margin = 10;
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const usableWidth = pageWidth - (margin * 2);
+
+        const sectionsRoot = renderContainer.firstElementChild;
+        const sections = sectionsRoot ? Array.from(sectionsRoot.children) : [];
+        if (sections.length === 0) {
+            throw new Error('No content available for PDF');
+        }
+
+        const usableHeight = pageHeight - (margin * 2);
+        let currentY = margin;
+
+        for (const section of sections) {
+            const sectionCanvas = await window.html2canvas(section, {
+                scale: renderScale,
+                useCORS: true,
+                backgroundColor: '#f9fafb'
+            });
+
+            const sectionHeightMm = (sectionCanvas.height * usableWidth) / sectionCanvas.width;
+
+            // If the section doesn't fit on current page, start new page first
+            if (currentY > margin && (currentY + sectionHeightMm > pageHeight - margin)) {
+                doc.addPage();
+                currentY = margin;
+            }
+
+            // If a single section is too tall for one page, fit it into one page
+            if (sectionHeightMm > usableHeight) {
+                if (currentY > margin) {
+                    doc.addPage();
+                    currentY = margin;
+                }
+
+                const scaleToFit = usableHeight / sectionHeightMm;
+                const drawWidth = usableWidth * scaleToFit;
+                const drawHeight = sectionHeightMm * scaleToFit;
+                const xOffset = margin + ((usableWidth - drawWidth) / 2);
+                const imgData = sectionCanvas.toDataURL('image/png');
+
+                doc.addImage(imgData, imageFormat, xOffset, currentY, drawWidth, drawHeight);
+                currentY += drawHeight + 3;
+            } else {
+                const imgData = sectionCanvas.toDataURL('image/png');
+                doc.addImage(imgData, imageFormat, margin, currentY, usableWidth, sectionHeightMm);
+                currentY += sectionHeightMm + 3;
+            }
+        }
+
+        doc.save(`quiz-review-${fileDate}.pdf`);
+        showToast('✅ PDF download started');
+    } catch (error) {
+        showToast('❌ Failed to download PDF', 'error');
+    } finally {
+        renderContainer.remove();
+    }
+}
+
+function buildReviewHTMLForPDF() {
+    const getCorrectIndex = (question) => {
+        if (typeof question.correct === 'number') return question.correct;
+        return question.options.indexOf(question.correct);
+    };
+
+    const formatAnswer = (answer, question) => {
+        if (answer === 'skipped') return 'Skipped';
+        if (answer === null || answer === undefined) return 'Not answered';
+        if (typeof answer !== 'number' || !question.options[answer]) return 'Not answered';
+        return `${String.fromCharCode(65 + answer)}. ${question.options[answer]}`;
+    };
+
+    const escapeHtml = (text) => {
+        return String(text || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    };
+
+    const correctAnswers = currentQuiz.questions.reduce((count, question, index) => {
+        const answer = selectedAnswers[index];
+        if (answer === 'skipped' || answer === null || answer === undefined) return count;
+        return answer === getCorrectIndex(question) ? count + 1 : count;
+    }, 0);
+
+    const wrongAnswers = currentQuiz.questions.reduce((count, question, index) => {
+        const answer = selectedAnswers[index];
+        if (answer === 'skipped' || answer === null || answer === undefined) return count;
+        return answer !== getCorrectIndex(question) ? count + 1 : count;
+    }, 0);
+
+    const skipped = selectedAnswers.filter((ans) => ans === 'skipped' || ans === null || ans === undefined).length;
+    const attempted = currentQuiz.questions.length - skipped;
+    const accuracy = attempted > 0 ? Math.round((correctAnswers / attempted) * 100) : 0;
+    const minutes = Math.floor(secondsElapsed / 60);
+    const seconds = secondsElapsed % 60;
+    const timeTaken = `${minutes}:${String(seconds).padStart(2, '0')}`;
+    const dateValue = document.getElementById('quiz-date')?.value || new Date().toISOString().slice(0, 10);
+
+    const questionBlocks = currentQuiz.questions.map((question, index) => {
+        const answer = selectedAnswers[index];
+        const correctIndex = getCorrectIndex(question);
+        const yourAnswerText = formatAnswer(answer, question);
+        const correctAnswerText = formatAnswer(correctIndex, question);
+        const timing = questionTimes[index]?.answerTime;
+
+        let result = 'Wrong';
+        let resultClass = 'color:#dc2626;background:#fef2f2;border:1px solid #fecaca;';
+
+        if (answer === 'skipped' || answer === null || answer === undefined) {
+            result = 'Skipped';
+            resultClass = 'color:#a16207;background:#fefce8;border:1px solid #fde68a;';
+        } else if (answer === correctIndex) {
+            result = 'Correct';
+            resultClass = 'color:#15803d;background:#f0fdf4;border:1px solid #bbf7d0;';
+        }
+
+        const optionsHTML = question.options.map((option, optionIndex) => {
+            let optionStyle = 'background:#f9fafb;border:1px solid #e5e7eb;color:#1f2937;';
+            let icon = '';
+
+            if (optionIndex === correctIndex) {
+                optionStyle = 'background:#dcfce7;border:1px solid #86efac;color:#166534;';
+                icon = '✅ ';
+            } else if (answer === optionIndex && answer !== correctIndex) {
+                optionStyle = 'background:#fee2e2;border:1px solid #fca5a5;color:#991b1b;';
+                icon = '❌ ';
+            }
+
+            return `
+                <div style="${optionStyle}border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:14px;line-height:1.45;">
+                    <strong>${String.fromCharCode(65 + optionIndex)}.</strong> ${icon}${escapeHtml(option)}
+                </div>
+            `;
+        }).join('');
+
+        return `
+            <div style="background:#ffffff;border:1px solid #e5e7eb;border-radius:14px;padding:16px;margin-bottom:14px;page-break-inside:avoid;box-shadow:0 1px 2px rgba(0,0,0,0.04);">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;">
+                    <div style="font-weight:700;font-size:16px;color:#111827;line-height:1.45;flex:1;">Q${index + 1}. ${escapeHtml(question.q)}</div>
+                    <div style="${resultClass}display:flex;align-items:center;justify-content:center;min-width:90px;height:30px;padding:0 12px;border-radius:999px;white-space:nowrap;text-align:center;box-sizing:border-box;">
+                        <span style="display:block;position:relative;top:${pdfBadgePaddingTop}px;font-size:12px;font-weight:700;line-height:1.1;text-align:center;">
+                            ${escapeHtml(result)}
+                        </span>
+                    </div>
+                </div>
+
+                <div style="margin-bottom:10px;">
+                    ${optionsHTML}
+                </div>
+
+                <div style="font-size:14px;color:#374151;margin-bottom:6px;"><strong>Your Answer:</strong> ${escapeHtml(yourAnswerText)}</div>
+                <div style="font-size:14px;color:#374151;margin-bottom:6px;"><strong>Correct Answer:</strong> ${escapeHtml(correctAnswerText)}</div>
+                <div style="font-size:14px;color:#1f2937;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px;margin-top:8px;">
+                    <strong>Explanation:</strong> ${escapeHtml(question.rationale || 'No explanation available.')}
+                </div>
+                ${typeof timing === 'number' ? `<div style="font-size:12px;color:#6b7280;margin-top:8px;">Time Spent: ${Math.round(timing)}s</div>` : ''}
+            </div>
+        `;
+    }).join('');
+
+    return `
+        <div style="font-family:Inter, Arial, sans-serif;color:#111827;">
+            <div style="background:linear-gradient(90deg,#4f46e5,#7c3aed);border-radius:16px;padding:20px;margin-bottom:14px;color:#ffffff;">
+                <div style="font-size:24px;font-weight:700;margin-bottom:8px;">Daily Govt Exam Quiz - Review Report</div>
+                <div style="font-size:14px;color:#e0e7ff;">Performance summary and question-wise explanations</div>
+            </div>
+
+            <div style="background:#ffffff;border:1px solid #e5e7eb;border-radius:16px;padding:20px;margin-bottom:14px;">
+                <div style="font-size:14px;color:#374151;line-height:1.8;">
+                    <div><strong>Date:</strong> ${escapeHtml(dateValue)}</div>
+                    <div><strong>Score:</strong> ${correctAnswers}/${currentQuiz.questions.length}</div>
+                    <div><strong>Correct:</strong> ${correctAnswers} | <strong>Wrong:</strong> ${wrongAnswers} | <strong>Skipped:</strong> ${skipped}</div>
+                    <div><strong>Accuracy:</strong> ${accuracy}% | <strong>Time Taken:</strong> ${timeTaken}</div>
+                </div>
+            </div>
+
+            <div style="font-size:${pdfReviewHeadingFontSize}px;font-weight:700;line-height:1;height:36px;padding:0 14px;margin:8px 0 10px;background:#eef2ff;border:1px solid #c7d2fe;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;text-align:center;">
+                <span style="display:block;position:relative;top:${pdfReviewHeadingNudge}px;">Question-wise Review</span>
+            </div>
+            ${questionBlocks}
+        </div>
+    `;
+}
+
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+
+    toast.innerText = message;
+    toast.classList.remove('hidden', 'bg-green-600', 'bg-red-600');
+    toast.classList.add(type === 'error' ? 'bg-red-600' : 'bg-green-600');
+
+    if (toastTimeout) {
+        clearTimeout(toastTimeout);
+    }
+
+    toastTimeout = setTimeout(() => {
+        toast.classList.add('hidden');
+    }, 2500);
 }
 
 // Initialize on page load

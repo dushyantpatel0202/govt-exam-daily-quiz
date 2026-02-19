@@ -190,9 +190,14 @@
             <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-2xl font-bold text-gray-800">📝 Question Review</h2>
-                    <button onclick="exitReview()" class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold px-6 py-3 rounded-xl transition-all hover-scale shadow-lg hover:shadow-xl">
-                        ← Back to Results
-                    </button>
+                    <div class="flex gap-3">
+                        <button onclick="downloadReviewAsPDF()" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-xl transition-all hover-scale shadow-lg hover:shadow-xl">
+                            ⬇️ Download PDF
+                        </button>
+                        <button onclick="exitReview()" class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold px-6 py-3 rounded-xl transition-all hover-scale shadow-lg hover:shadow-xl">
+                            ← Back to Results
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Review Controls -->
@@ -379,9 +384,14 @@
                 <p class="text-sm text-gray-500 mb-4">
                     Review all questions to see your answers and learn from mistakes with detailed explanations.
                 </p>
-                <button onclick="startReview()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-xl transition-all hover-scale">
-                    Review All Questions →
-                </button>
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="startReview()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-xl transition-all hover-scale">
+                        Review All Questions →
+                    </button>
+                    <button onclick="downloadReviewAsPDF()" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-xl transition-all hover-scale">
+                        ⬇️ Download Result PDF
+                    </button>
+                </div>
             </div>
 
             <!-- Learning Tools -->
@@ -423,8 +433,13 @@
                 </div>
             </div>
         </div>
+
+        <!-- Toast Notification -->
+        <div id="toast" class="hidden fixed bottom-6 right-6 z-50 max-w-sm px-4 py-3 rounded-xl shadow-lg text-white font-medium"></div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
