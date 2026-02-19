@@ -26,6 +26,8 @@ let toastTimeout = null;
 const pdfBadgePaddingTop = -7;
 const pdfReviewHeadingFontSize = 12;
 const pdfReviewHeadingNudge = -8;
+const pdfOptionVNudge = -6;
+const pdfExplanationVNudge = -6;
 
 // Quiz categories for analysis
 const QUIZ_CATEGORIES = {
@@ -1508,7 +1510,9 @@ function buildReviewHTMLForPDF() {
 
             return `
                 <div style="${optionStyle}border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:14px;line-height:1.45;">
-                    <strong>${String.fromCharCode(65 + optionIndex)}.</strong> ${icon}${escapeHtml(option)}
+                    <span style="display:block;position:relative;top:${pdfOptionVNudge}px;">
+                        <strong>${String.fromCharCode(65 + optionIndex)}.</strong> ${icon}${escapeHtml(option)}
+                    </span>
                 </div>
             `;
         }).join('');
@@ -1531,7 +1535,9 @@ function buildReviewHTMLForPDF() {
                 <div style="font-size:14px;color:#374151;margin-bottom:6px;"><strong>Your Answer:</strong> ${escapeHtml(yourAnswerText)}</div>
                 <div style="font-size:14px;color:#374151;margin-bottom:6px;"><strong>Correct Answer:</strong> ${escapeHtml(correctAnswerText)}</div>
                 <div style="font-size:14px;color:#1f2937;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px;margin-top:8px;">
-                    <strong>Explanation:</strong> ${escapeHtml(question.rationale || 'No explanation available.')}
+                    <span style="display:block;position:relative;top:${pdfExplanationVNudge}px;">
+                        <strong>Explanation:</strong> ${escapeHtml(question.rationale || 'No explanation available.')}
+                    </span>
                 </div>
                 ${typeof timing === 'number' ? `<div style="font-size:12px;color:#6b7280;margin-top:8px;">Time Spent: ${Math.round(timing)}s</div>` : ''}
             </div>
