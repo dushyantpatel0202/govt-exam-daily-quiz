@@ -61,6 +61,13 @@ function formatShortDate(dateString) {
     return `${day}-${month}-${year}`;
 }
 
+function formatLocalISODate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
 async function fetchQuizDataByDate(selectedDate) {
     try {
         const filename = getFilenameFromDate(selectedDate);
@@ -92,7 +99,7 @@ async function getLastAvailableQuizDates(fromDate, count = 4) {
     const maxAttempts = 90;
 
     while (results.length < count && attempts < maxAttempts) {
-        const isoDate = cursor.toISOString().slice(0, 10);
+        const isoDate = formatLocalISODate(cursor);
         const quizData = await fetchQuizDataByDate(isoDate);
         if (quizData) {
             results.push(isoDate);
@@ -1578,7 +1585,7 @@ function buildReviewHTMLForPDF() {
     const minutes = Math.floor(secondsElapsed / 60);
     const seconds = secondsElapsed % 60;
     const timeTaken = `${minutes}:${String(seconds).padStart(2, '0')}`;
-    const dateValue = document.getElementById('quiz-date')?.value || new Date().toISOString().slice(0, 10);
+    const dateValue = document.getElementById('quiz-date')?.value || formatLocalISODate(new Date());
 
     const questionBlocks = currentQuiz.questions.map((question, index) => {
         const answer = selectedAnswers[index];
