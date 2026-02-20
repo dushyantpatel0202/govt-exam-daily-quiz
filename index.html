@@ -357,9 +357,14 @@
             <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-2xl font-bold text-gray-800">📖 Quiz Content</h2>
-                    <button onclick="closeContent()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-4 py-2 rounded-lg transition-all">
-                        ✕ Close
-                    </button>
+                    <div class="flex gap-2">
+                        <button onclick="downloadQuizContentAsPDF()" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-lg transition-all">
+                            ⬇️ Download PDF
+                        </button>
+                        <button onclick="closeContent()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-4 py-2 rounded-lg transition-all">
+                            ✕ Close
+                        </button>
+                    </div>
                 </div>
                 <div id="content-text" class="study-content">
                     <!-- Content will be loaded here -->
@@ -440,7 +445,7 @@
             </div>
 
             <!-- Action Buttons -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="grid grid-cols-2 md:grid-cols-6 gap-4 mb-6">
                 <button onclick="skipQuestion()" class="bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition-all border border-gray-200">
                     <span class="block text-xl mb-1">⏭️</span>
                     <span class="text-sm font-medium text-gray-700">Skip</span>
@@ -449,6 +454,10 @@
                     <span class="block text-xl mb-1">🔖</span>
                     <span class="text-sm font-medium text-gray-700">Review Later</span>
                 </button>
+                <button onclick="resetCurrentQuestion()" class="bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition-all border border-gray-200">
+                    <span class="block text-xl mb-1">🔄</span>
+                    <span class="text-sm font-medium text-gray-700">Reset Question</span>
+                </button>
                 <button onclick="showHint()" class="bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition-all border border-gray-200">
                     <span class="block text-xl mb-1">💡</span>
                     <span class="text-sm font-medium text-gray-700">Hint</span>
@@ -456,6 +465,10 @@
                 <button onclick="toggleTimer()" class="bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition-all border border-gray-200">
                     <span class="block text-xl mb-1">⏱️</span>
                     <span class="text-sm font-medium text-gray-700" id="timer-display">00:00</span>
+                </button>
+                <button type="button" class="bg-gray-50 p-4 rounded-xl transition-all border border-gray-200 cursor-default">
+                    <span class="block text-xl mb-1">⏲️</span>
+                    <span class="text-sm font-medium text-gray-700" id="question-timer-display">Q 00:00</span>
                 </button>
             </div>
         </div>
@@ -466,6 +479,9 @@
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-2xl font-bold text-gray-800">📝 Question Review</h2>
                     <div class="flex gap-3">
+                        <button onclick="startQuizFromContent()" class="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-6 py-3 rounded-xl transition-all hover-scale shadow-lg hover:shadow-xl">
+                            🔄 Reset Quiz
+                        </button>
                         <button onclick="downloadReviewAsPDF()" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-xl transition-all hover-scale shadow-lg hover:shadow-xl">
                             ⬇️ Download PDF
                         </button>

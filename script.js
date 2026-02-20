@@ -9,6 +9,7 @@ let reviewMarkedQuestions = [];
 let questionTimes = [];
 let timerInterval = null;
 let secondsElapsed = 0;
+let questionSecondsElapsed = 0;
 let isTimerRunning = false;
 let hintUsed = false;
 let quizCompleted = false;
@@ -289,6 +290,7 @@ async function loadQuizByDate() {
         reviewMarkedQuestions = [];
         questionTimes = new Array(totalQuestions).fill(null);
         secondsElapsed = 0;
+        questionSecondsElapsed = 0;
         hintUsed = false;
         
         // Record start time for first question
@@ -317,6 +319,7 @@ async function loadQuizByDate() {
         if (reviewSection) reviewSection.classList.add('hidden');
         
         // Start timer
+        updateQuestionTimerDisplay();
         startTimer();
         
         // Start quiz
@@ -510,6 +513,223 @@ async function showContent() {
     }
 }
 
+async function downloadQuizContentAsPDF() {
+    if (!window.jspdf || !window.jspdf.jsPDF) {
+        alert('PDF library failed to load. Please refresh and try again.');
+        return;
+    }
+
+    if (!window.html2canvas) {
+        showToast('❌ PDF renderer failed to load. Refresh and try again.', 'error');
+        return;
+    }
+
+    const selectedDate = document.getElementById('quiz-date')?.value || formatLocalISODate(new Date());
+
+    if (!currentQuiz || !Array.isArray(currentQuiz.questions) || currentQuiz.questions.length === 0) {
+        alert('Please load quiz content first!');
+        return;
+    }
+
+    const contentText = document.getElementById('content-text');
+    if (!contentText || !contentText.innerHTML.trim()) {
+        await showContent();
+    }
+
+    const contentHtml = document.getElementById('content-text')?.innerHTML || '';
+    if (!contentHtml.trim()) {
+        showToast('❌ Content is empty for PDF export', 'error');
+        return;
+    }
+
+    const renderContainer = document.createElement('div');
+    renderContainer.style.position = 'fixed';
+    renderContainer.style.left = '-10000px';
+    renderContainer.style.top = '0';
+    renderContainer.style.width = '1024px';
+    renderContainer.style.background = '#f9fafb';
+    renderContainer.style.padding = '24px';
+    renderContainer.innerHTML = `
+        <style>
+            .pdf-content-export,
+            .pdf-content-export * {
+                color: #1f2937 !important;
+                text-shadow: none !important;
+            }
+            body.dark-mode .pdf-content-export,
+            body.dark-mode .pdf-content-export * {
+                color: #1f2937 !important;
+            }
+            .pdf-content-export {
+                background: #ffffff !important;
+            }
+            body.dark-mode .pdf-content-export .bg-white {
+                background: #ffffff !important;
+            }
+            body.dark-mode .pdf-content-export .bg-gray-50,
+            body.dark-mode .pdf-content-export .bg-gray-100,
+            body.dark-mode .pdf-content-export .bg-indigo-50,
+            body.dark-mode .pdf-content-export .bg-blue-50 {
+                background: #f9fafb !important;
+            }
+            body.dark-mode .pdf-content-export .text-gray-800,
+            body.dark-mode .pdf-content-export .text-gray-700,
+            body.dark-mode .pdf-content-export .text-gray-600,
+            body.dark-mode .pdf-content-export .text-gray-500,
+            body.dark-mode .pdf-content-export .text-indigo-600,
+            body.dark-mode .pdf-content-export .text-indigo-700,
+            body.dark-mode .pdf-content-export .text-blue-700,
+            body.dark-mode .pdf-content-export .text-green-600 {
+                color: #1f2937 !important;
+            }
+            .pdf-content-export .study-content {
+                color: #1f2937 !important;
+                max-width: none !important;
+            }
+            .pdf-content-export h3,
+            .pdf-content-export h4 {
+                line-height: 1.45 !important;
+            }
+            .pdf-content-export .study-content .study-option {
+                background: #f9fafb !important;
+                border-color: #e5e7eb !important;
+            }
+            .pdf-content-export .study-content .study-option.correct {
+                background: #ecfdf5 !important;
+                border-color: #bbf7d0 !important;
+                color: #166534 !important;
+            }
+            .pdf-content-export .study-content .study-explanation {
+                background: #eff6ff !important;
+                border-color: #bfdbfe !important;
+                color: #1f2937 !important;
+            }
+            .pdf-content-export .study-content .study-meta {
+                background: #f8fafc !important;
+                border-color: #e5e7eb !important;
+                color: #1f2937 !important;
+            }
+        </style>
+        <div class="pdf-content-export" style="background:#ffffff;border:1px solid #e5e7eb;border-radius:16px;padding:28px 24px 24px 24px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-bottom:16px;padding-top:4px;">
+                <h2 style="font-size:28px;line-height:1.35;font-weight:700;color:#1f2937;margin:0;">📖 Quiz Content</h2>
+                <div style="font-size:14px;color:#4b5563;">${formatDisplayDate(selectedDate)}</div>
+            </div>
+            <div class="study-content pdf-content-body">${contentHtml}</div>
+        </div>
+    `;
+    document.body.appendChild(renderContainer);
+
+    try {
+        showToast('📄 Preparing content PDF...');
+
+        const { jsPDF } = window.jspdf;
+        const maxPdfSizeBytes = 10 * 1024 * 1024;
+        const exportProfiles = [
+            { scale: 1.05 },
+            { scale: 0.95 },
+            { scale: 0.85 },
+            { scale: 0.75 },
+            { scale: 0.65 }
+        ];
+
+        const contentBody = renderContainer.querySelector('.pdf-content-body');
+        const contentSections = contentBody ? Array.from(contentBody.children) : [];
+
+        const buildPdfFromSections = async (scale) => {
+            const doc = new jsPDF({ unit: 'mm', format: 'a4', compress: true, putOnlyUsedFonts: true });
+            const margin = 10;
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+            const usableWidth = pageWidth - (margin * 2);
+            const usableHeight = pageHeight - (margin * 2);
+
+            const sections = contentSections.length ? contentSections : [contentBody || renderContainer.firstElementChild];
+            let currentY = margin + 2;
+
+            for (const section of sections) {
+                if (!section) continue;
+
+                const previousPaddingTop = section.style.paddingTop;
+                const previousPaddingBottom = section.style.paddingBottom;
+                const previousOverflow = section.style.overflow;
+                section.style.paddingTop = '8px';
+                section.style.paddingBottom = '8px';
+                section.style.overflow = 'visible';
+
+                const sectionCanvas = await window.html2canvas(section, {
+                    scale,
+                    useCORS: true,
+                    backgroundColor: '#ffffff'
+                });
+
+                section.style.paddingTop = previousPaddingTop;
+                section.style.paddingBottom = previousPaddingBottom;
+                section.style.overflow = previousOverflow;
+
+                const sectionHeightMm = (sectionCanvas.height * usableWidth) / sectionCanvas.width;
+
+                if (currentY > margin && (currentY + sectionHeightMm > pageHeight - margin)) {
+                    doc.addPage();
+                    currentY = margin;
+                }
+
+                if (sectionHeightMm > usableHeight) {
+                    if (currentY > margin) {
+                        doc.addPage();
+                        currentY = margin;
+                    }
+
+                    const scaleToFit = usableHeight / sectionHeightMm;
+                    const drawWidth = usableWidth * scaleToFit;
+                    const drawHeight = sectionHeightMm * scaleToFit;
+                    const xOffset = margin + ((usableWidth - drawWidth) / 2);
+                    const imgData = sectionCanvas.toDataURL('image/png');
+
+                    doc.addImage(imgData, 'PNG', xOffset, currentY, drawWidth, drawHeight);
+                    currentY += drawHeight + 3;
+                } else {
+                    const imgData = sectionCanvas.toDataURL('image/png');
+                    doc.addImage(imgData, 'PNG', margin, currentY, usableWidth, sectionHeightMm);
+                    currentY += sectionHeightMm + 3;
+                }
+            }
+
+            return doc;
+        };
+
+        let selectedDoc = null;
+        let selectedBlob = null;
+
+        for (const profile of exportProfiles) {
+            const docCandidate = await buildPdfFromSections(profile.scale);
+            const blobCandidate = docCandidate.output('blob');
+
+            selectedDoc = docCandidate;
+            selectedBlob = blobCandidate;
+
+            if (blobCandidate.size <= maxPdfSizeBytes) {
+                break;
+            }
+        }
+
+        if (selectedBlob && selectedBlob.size > maxPdfSizeBytes) {
+            showToast('⚠️ PDF is optimized to minimum quality but may still exceed 10 MB', 'error');
+        }
+
+        if (!selectedDoc) {
+            throw new Error('PDF generation failed');
+        }
+
+        selectedDoc.save(`quiz-content-${selectedDate}.pdf`);
+        showToast('✅ Content PDF download started');
+    } catch (error) {
+        showToast('❌ Failed to download content PDF', 'error');
+    } finally {
+        renderContainer.remove();
+    }
+}
+
 // Close content section
 function closeContent() {
     const contentSection = document.getElementById('content-section');
@@ -522,6 +742,8 @@ function startQuizFromContent() {
         alert("Please select a date first!");
         return;
     }
+
+    isReviewMode = false;
     
     // Close content section
     const contentSection = document.getElementById('content-section');
@@ -537,6 +759,7 @@ function startQuizFromContent() {
     reviewMarkedQuestions = [];
     questionTimes = new Array(totalQuestions).fill(null);
     secondsElapsed = 0;
+    questionSecondsElapsed = 0;
     hintUsed = false;
     
     // Record start time for first question
@@ -563,6 +786,7 @@ function startQuizFromContent() {
     if (reviewSection) reviewSection.classList.add('hidden');
     
     // Start timer
+    updateQuestionTimerDisplay();
     startTimer();
     
     // Start quiz
@@ -685,6 +909,15 @@ function displayQuestion(index) {
     }
 
     const question = currentQuiz.questions[index];
+
+    if (questionTimes[index]?.answerTime) {
+        questionSecondsElapsed = Math.max(0, Math.round(questionTimes[index].answerTime));
+    } else if (questionTimes[index]?.start) {
+        questionSecondsElapsed = Math.max(0, Math.floor((Date.now() - questionTimes[index].start) / 1000));
+    } else {
+        questionSecondsElapsed = 0;
+    }
+    updateQuestionTimerDisplay();
     
     // Update question text
     const qTextEl = document.getElementById('q-text');
@@ -759,6 +992,8 @@ function checkAnswer(selectedIndex, question) {
         selected: selectedIndex,
         end: Date.now()
     };
+    questionSecondsElapsed = Math.max(0, Math.round(timeSpent));
+    updateQuestionTimerDisplay();
     
     // Disable all option buttons
     const optionButtons = document.querySelectorAll('#options button');
@@ -884,6 +1119,49 @@ function skipQuestion() {
     nextQuestion();
 }
 
+function resetCurrentQuestion() {
+    if (!currentQuiz || !currentQuiz.questions || !currentQuiz.questions[currentQuestionIndex]) return;
+
+    const question = currentQuiz.questions[currentQuestionIndex];
+    const previousAnswer = selectedAnswers[currentQuestionIndex];
+
+    if (previousAnswer === null || previousAnswer === undefined) {
+        alert('This question is already reset.');
+        return;
+    }
+
+    let correctIndex;
+    if (typeof question.correct === 'number') {
+        correctIndex = question.correct;
+    } else {
+        correctIndex = question.options.indexOf(question.correct);
+    }
+
+    if (previousAnswer !== 'skipped' && previousAnswer === correctIndex && score > 0) {
+        score--;
+        const scoreValueEl = document.getElementById('score-value');
+        if (scoreValueEl) scoreValueEl.innerText = score;
+    }
+
+    selectedAnswers[currentQuestionIndex] = null;
+
+    const skippedIndex = skippedQuestions.indexOf(currentQuestionIndex);
+    if (skippedIndex > -1) {
+        skippedQuestions.splice(skippedIndex, 1);
+    }
+
+    questionTimes[currentQuestionIndex] = {
+        start: Date.now()
+    };
+
+    const feedback = document.getElementById('feedback');
+    if (feedback) feedback.classList.add('hidden');
+
+    updateProgress();
+    displayQuestion(currentQuestionIndex);
+    populateQuizNavigator();
+}
+
 // Mark for review
 function markForReview() {
     if (!reviewMarkedQuestions.includes(currentQuestionIndex)) {
@@ -916,7 +1194,12 @@ function startTimer() {
     
     timerInterval = setInterval(() => {
         secondsElapsed++;
+        const currentAnswer = selectedAnswers[currentQuestionIndex];
+        if (currentAnswer === null || currentAnswer === undefined) {
+            questionSecondsElapsed++;
+        }
         updateTimerDisplay();
+        updateQuestionTimerDisplay();
     }, 1000);
 }
 
@@ -935,6 +1218,15 @@ function updateTimerDisplay() {
     const timerDisplay = document.getElementById('timer-display');
     if (timerDisplay) {
         timerDisplay.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+}
+
+function updateQuestionTimerDisplay() {
+    const minutes = Math.floor(questionSecondsElapsed / 60);
+    const seconds = questionSecondsElapsed % 60;
+    const questionTimerDisplay = document.getElementById('question-timer-display');
+    if (questionTimerDisplay) {
+        questionTimerDisplay.innerText = `Q ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     }
 }
 
@@ -1058,6 +1350,8 @@ function endQuiz() {
     // Show results dashboard
     const resultsDashboard = document.getElementById('results-dashboard');
     if (resultsDashboard) resultsDashboard.classList.remove('hidden');
+
+    analyzePerformance();
 }
 
 // Analyze performance by topic
