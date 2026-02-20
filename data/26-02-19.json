@@ -13,7 +13,8 @@
         "4 lakh metric tonnes"
       ],
       "correct": 1,
-      "rationale": "FCI और WFP के बीच हुए समझौते के अनुसार 2 लाख मीट्रिक टन चावल वैश्विक भूख राहत के लिए उपलब्ध कराया जाएगा। (As per the agreement, FCI will supply 2 lakh metric tonnes of rice for global hunger relief.)"
+      "rationale": "FCI और WFP के बीच हुए समझौते के अनुसार 2 लाख मीट्रिक टन चावल वैश्विक भूख राहत के लिए उपलब्ध कराया जाएगा। (As per the agreement, FCI will supply 2 lakh metric tonnes of rice for global hunger relief.)",
+      "category": "international affairs"
     },
     {
       "q": "भारत और नेपाल के बीच हस्ताक्षरित Mutual Legal Assistance Agreement मुख्यतः किस विषय से संबंधित है? (The India-Nepal Mutual Legal Assistance Agreement mainly deals with which area?)",
@@ -24,7 +25,8 @@
         "Border security"
       ],
       "correct": 2,
-      "rationale": "यह समझौता आपराधिक मामलों में जांच, साक्ष्य और न्यायिक सहयोग को मजबूत करने के लिए किया गया है। (The agreement focuses on cooperation in criminal investigations and judicial matters.)"
+      "rationale": "यह समझौता आपराधिक मामलों में जांच, साक्ष्य और न्यायिक सहयोग को मजबूत करने के लिए किया गया है। (The agreement focuses on cooperation in criminal investigations and judicial matters.)",
+      "category": "national affairs"
     },
     {
       "q": "OpenAI की भारतीय संस्थानों के साथ साझेदारी का मुख्य उद्देश्य क्या नहीं है? (What is NOT the main objective of OpenAI’s partnership with Indian institutions?)",
@@ -35,7 +37,8 @@
         "Developing AI for military applications"
       ],
       "correct": 3,
-      "rationale": "शिक्षा-संबंधी साझेदारी में AI को पढ़ाई में शामिल करना, भविष्य की नौकरियों के लिए तैयारी और 1 लाख+ शिक्षार्थियों को समर्थन शामिल है; सैन्य AI इसका हिस्सा नहीं है। (The partnership includes AI integration in education, future-job readiness, and support for 1 lakh+ learners, not military AI.)"
+      "rationale": "शिक्षा-संबंधी साझेदारी में AI को पढ़ाई में शामिल करना, भविष्य की नौकरियों के लिए तैयारी और 1 लाख+ शिक्षार्थियों को समर्थन शामिल है; सैन्य AI इसका हिस्सा नहीं है। (The partnership includes AI integration in education, future-job readiness, and support for 1 lakh+ learners, not military AI.)",
+      "category": "national affairs"
     },
     {
       "q": "IIT Madras Global Research Foundation ने भारत के बाहर अपना पहला AI Innovation Center कहाँ शुरू किया? (Where did IIT Madras Global Research Foundation open its first AI Innovation Center outside India?)",
@@ -46,7 +49,8 @@
         "New York"
       ],
       "correct": 2,
-      "rationale": "IIT Madras Global Research Foundation का पहला विदेशी AI Innovation Center दुबई में स्थापित किया गया है। (The first overseas AI Innovation Center was established in Dubai.)"
+      "rationale": "IIT Madras Global Research Foundation का पहला विदेशी AI Innovation Center दुबई में स्थापित किया गया है। (The first overseas AI Innovation Center was established in Dubai.)",
+      "category": "international affairs"
     },
     {
       "q": "NPCI ने NVIDIA के साथ मिलकर भारत के भुगतान नेटवर्क के लिए क्या विकसित करने की योजना बनाई है? (What is NPCI developing with NVIDIA for India’s payment network?)",
@@ -57,7 +61,8 @@
         "A biometric authentication system"
       ],
       "correct": 2,
-      "rationale": "NPCI और NVIDIA का सहयोग भुगतान प्रणाली को सुरक्षित, तेज और भरोसेमंद बनाने हेतु sovereign AI system पर केंद्रित है। (The collaboration focuses on building a sovereign AI system for secure and efficient payments.)"
+      "rationale": "NPCI और NVIDIA का सहयोग भुगतान प्रणाली को सुरक्षित, तेज और भरोसेमंद बनाने हेतु sovereign AI system पर केंद्रित है। (The collaboration focuses on building a sovereign AI system for secure and efficient payments.)",
+      "category": "national affairs"
     },
     {
       "q": "EU का Legal Gateway Office नई दिल्ली में किस क्षेत्र में पढ़ाई/काम के इच्छुक भारतीयों की सहायता के लिए खोला गया है? (The EU Legal Gateway Office in New Delhi supports Indians interested in which sector?)",
@@ -68,7 +73,8 @@
         "Arts and Humanities"
       ],
       "correct": 2,
-      "rationale": "यह कार्यालय विशेष रूप से यूरोप में ICT क्षेत्र में अवसर खोज रहे छात्रों और पेशेवरों के लिए सहायता केंद्र है। (It is a support center mainly for students and professionals targeting the ICT sector in Europe.)"
+      "rationale": "यह कार्यालय विशेष रूप से यूरोप में ICT क्षेत्र में अवसर खोज रहे छात्रों और पेशेवरों के लिए सहायता केंद्र है। (It is a support center mainly for students and professionals targeting the ICT sector in Europe.)",
+      "category": "national affairs"
     },
     {
       "q": "Indian Navy ने International Fleet Review किस शहर में आयोजित किया? (In which city did the Indian Navy host the International Fleet Review?)",
@@ -79,7 +85,8 @@
         "Chennai"
       ],
       "correct": 2,
-      "rationale": "International Fleet Review का आयोजन विशाखापत्तनम में किया गया था। (The International Fleet Review was hosted in Visakhapatnam.)"
+      "rationale": "International Fleet Review का आयोजन विशाखापत्तनम में किया गया था। (The International Fleet Review was hosted in Visakhapatnam.)",
+      "category": "international affairs"
     },
     {
       "q": "भारत के पहले indigenous cadet training ship का नाम क्या है? (What is the name of India’s first indigenous cadet training ship?)",
@@ -90,7 +97,8 @@
         "Godavari"
       ],
       "correct": 1,
-      "rationale": "भारत के पहले स्वदेशी कैडेट प्रशिक्षण पोत का नाम ‘Krishna’ है। (India’s first indigenous cadet training ship is named ‘Krishna’.)"
+      "rationale": "भारत के पहले स्वदेशी कैडेट प्रशिक्षण पोत का नाम ‘Krishna’ है। (India’s first indigenous cadet training ship is named ‘Krishna’.)",
+      "category": "national affairs"
     },
     {
       "q": "Exercise ‘Vajra Prahar’ राजस्थान के किस जिले में आयोजित किया गया? (In which district of Rajasthan was Exercise ‘Vajra Prahar’ conducted?)",
@@ -101,7 +109,8 @@
         "Jodhpur"
       ],
       "correct": 2,
-      "rationale": "यह अभ्यास पोकरण फील्ड फायरिंग रेंज, जैसलमेर जिले (राजस्थान) में आयोजित हुआ। (The exercise was conducted at Pokhran Field Firing Range in Jaisalmer district.)"
+      "rationale": "यह अभ्यास पोकरण फील्ड फायरिंग रेंज, जैसलमेर जिले (राजस्थान) में आयोजित हुआ। (The exercise was conducted at Pokhran Field Firing Range in Jaisalmer district.)",
+      "category": "general affairs"
     },
     {
       "q": "Pramod Bhagat ने चौथा लगातार SL3 गोल्ड किस खेल में जीता? (Pramod Bhagat won his fourth consecutive SL3 gold in which sport?)",
@@ -112,7 +121,8 @@
         "Tennis"
       ],
       "correct": 1,
-      "rationale": "प्रमोद भगत ने पैरा-बैडमिंटन में अपना चौथा लगातार SL3 गोल्ड पदक जीता। (Pramod Bhagat secured his fourth consecutive SL3 gold in para-badminton.)"
+      "rationale": "प्रमोद भगत ने पैरा-बैडमिंटन में अपना चौथा लगातार SL3 गोल्ड पदक जीता। (Pramod Bhagat secured his fourth consecutive SL3 gold in para-badminton.)",
+      "category": "general affairs"
     },
     {
       "q": "International Childhood Cancer Day हर वर्ष कब मनाया जाता है? (When is International Childhood Cancer Day observed every year?)",
@@ -123,7 +133,8 @@
         "February 20"
       ],
       "correct": 2,
-      "rationale": "International Childhood Cancer Day हर साल 15 फरवरी को जागरूकता और समर्थन के उद्देश्य से मनाया जाता है। (It is observed every year on 15 February for awareness and support.)"
+      "rationale": "International Childhood Cancer Day हर साल 15 फरवरी को जागरूकता और समर्थन के उद्देश्य से मनाया जाता है। (It is observed every year on 15 February for awareness and support.)",
+      "category": "international affairs"
     },
     {
       "q": "Google ने भारत की AI connectivity बढ़ाने के लिए घोषित 15 billion USD निवेश में नया subsea cable किस देश से कनेक्टिविटी मजबूत करेगा? (Google’s new subsea cable under its $15 billion plan improves India’s connectivity with which country?)",
@@ -134,7 +145,8 @@
         "Australia"
       ],
       "correct": 2,
-      "rationale": "Google की योजना में भारत और अमेरिका के बीच डिजिटल कनेक्टिविटी मजबूत करने के लिए नया subsea cable शामिल है। (The plan includes a new subsea cable to strengthen digital connectivity between India and the United States.)"
+      "rationale": "Google की योजना में भारत और अमेरिका के बीच डिजिटल कनेक्टिविटी मजबूत करने के लिए नया subsea cable शामिल है। (The plan includes a new subsea cable to strengthen digital connectivity between India and the United States.)",
+      "category": "national affairs"
     },
     {
       "q": "जापान के हाल ही में इस्तीफा देने वाले प्रधानमंत्री कौन हैं? (Who is the recently resigned Prime Minister of Japan?)",
@@ -145,7 +157,8 @@
         "योशिहिदे सुगा"
       ],
       "correct": 1,
-      "rationale": "हालिया अपडेट के अनुसार जापान के प्रधानमंत्री तकाईची ने इस्तीफा दिया। (As per the update, Japan’s Prime Minister Takaichi resigned.)"
+      "rationale": "हालिया अपडेट के अनुसार जापान के प्रधानमंत्री तकाईची ने इस्तीफा दिया। (As per the update, Japan’s Prime Minister Takaichi resigned.)",
+      "category": "general affairs"
     },
     {
       "q": "शाहपुर कंडी बांध किस नदी पर स्थित है? (Shahpur Kandi Dam is on which river?)",
@@ -156,7 +169,8 @@
         "सतलुज"
       ],
       "correct": 2,
-      "rationale": "शाहपुर कंडी बांध रावी नदी पर स्थित एक महत्वपूर्ण बहुउद्देश्यीय परियोजना है। (Shahpur Kandi Dam is a key multipurpose project on the Ravi river.)"
+      "rationale": "शाहपुर कंडी बांध रावी नदी पर स्थित एक महत्वपूर्ण बहुउद्देश्यीय परियोजना है। (Shahpur Kandi Dam is a key multipurpose project on the Ravi river.)",
+      "category": "general affairs"
     },
     {
       "q": "G4 देशों में कौन से चार देश शामिल हैं? (Which four countries are part of G4?)",
@@ -167,7 +181,8 @@
         "ऑस्ट्रेलिया, न्यूजीलैंड, दक्षिण अफ्रीका, भारत"
       ],
       "correct": 1,
-      "rationale": "G4 समूह में भारत, जर्मनी, जापान और ब्राजील शामिल हैं, जो UNSC सुधार की मांग करते हैं। (G4 includes India, Germany, Japan, and Brazil, which advocate UNSC reform.)"
+      "rationale": "G4 समूह में भारत, जर्मनी, जापान और ब्राजील शामिल हैं, जो UNSC सुधार की मांग करते हैं। (G4 includes India, Germany, Japan, and Brazil, which advocate UNSC reform.)",
+      "category": "national affairs"
     },
     {
       "q": "भारत विस्तार AI पोर्टल किस मंत्रालय द्वारा लॉन्च किया गया है? (Bharat Vistar AI portal was launched by which ministry?)",
@@ -178,7 +193,8 @@
         "इलेक्ट्रॉनिक्स और सूचना प्रौद्योगिकी मंत्रालय"
       ],
       "correct": 2,
-      "rationale": "भारत विस्तार AI पोर्टल कृषि मंत्रालय द्वारा लॉन्च किया गया, जिसका उद्देश्य किसानों को जानकारी और सहायता देना है। (The Bharat Vistar AI portal was launched by the Ministry of Agriculture to support farmers.)"
+      "rationale": "भारत विस्तार AI पोर्टल कृषि मंत्रालय द्वारा लॉन्च किया गया, जिसका उद्देश्य किसानों को जानकारी और सहायता देना है। (The Bharat Vistar AI portal was launched by the Ministry of Agriculture to support farmers.)",
+      "category": "national affairs"
     },
     {
       "q": "मिलन नौसैनिक अभ्यास कहाँ आयोजित किया जा रहा है? (Where is the Milan naval exercise being held?)",
@@ -189,7 +205,8 @@
         "कोच्चि"
       ],
       "correct": 2,
-      "rationale": "मिलन नौसैनिक अभ्यास विशाखापत्तनम में आयोजित होता है और यह बहुपक्षीय नौसैनिक सहयोग का प्रमुख मंच है। (The Milan naval exercise is held in Visakhapatnam and is a major multilateral naval cooperation platform.)"
+      "rationale": "मिलन नौसैनिक अभ्यास विशाखापत्तनम में आयोजित होता है और यह बहुपक्षीय नौसैनिक सहयोग का प्रमुख मंच है। (The Milan naval exercise is held in Visakhapatnam and is a major multilateral naval cooperation platform.)",
+      "category": "national affairs"
     }
   ]
 }

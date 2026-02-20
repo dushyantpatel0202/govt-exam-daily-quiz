@@ -13,7 +13,8 @@
         "112"
       ],
       "correct": 2,
-      "rationale": "ISRO के PSLV-C37 मिशन ने सफलतापूर्वक 104 उपग्रहों को कक्षा में स्थापित किया, जो उस समय एक विश्व रिकॉर्ड था। (ISRO's PSLV-C37 mission successfully deployed 104 satellites into orbit, which was a world record at that time.)"
+      "rationale": "ISRO के PSLV-C37 मिशन ने सफलतापूर्वक 104 उपग्रहों को कक्षा में स्थापित किया, जो उस समय एक विश्व रिकॉर्ड था। (ISRO's PSLV-C37 mission successfully deployed 104 satellites into orbit, which was a world record at that time.)",
+      "category": "economic affairs"
     },
     {
       "q": "प्रसिद्ध उर्दू कवि मिर्ज़ा ग़ालिब, जिनका निधन 15 फरवरी, 1869 को हुआ था, किस मुगल सम्राट के समकालीन थे? (The famous Urdu poet Mirza Ghalib, who passed away on February 15, 1869, was a contemporary of which Mughal Emperor?)",
@@ -24,7 +25,8 @@
         "औरंगज़ेब (Aurangzeb)"
       ],
       "correct": 1,
-      "rationale": "मिर्ज़ा ग़ालिब अंतिम मुगल सम्राट बहादुर शाह ज़फर के दरबारी कवि और शिक्षक थे। (Mirza Ghalib was the court poet and tutor to the last Mughal Emperor, Bahadur Shah Zafar.)"
+      "rationale": "मिर्ज़ा ग़ालिब अंतिम मुगल सम्राट बहादुर शाह ज़फर के दरबारी कवि और शिक्षक थे। (Mirza Ghalib was the court poet and tutor to the last Mughal Emperor, Bahadur Shah Zafar.)",
+      "category": "general affairs"
     },
     {
       "q": "कलिंग वास्तुकला का उत्कृष्ट उदाहरण माना जाने वाला लिंगराज मंदिर कहाँ स्थित है? (Where is the Lingaraj Temple, considered an excellent example of Kalinga architecture, located?)",
@@ -35,7 +37,8 @@
         "कोणार्क (Konark)"
       ],
       "correct": 1,
-      "rationale": "लिंगराज मंदिर ओडिशा के भुवनेश्वर में स्थित है और यह भगवान शिव को समर्पित सबसे पुराने मंदिरों में से एक है। (Lingaraj Temple is located in Bhubaneswar, Odisha and is one of the oldest temples dedicated to Lord Shiva.)"
+      "rationale": "लिंगराज मंदिर ओडिशा के भुवनेश्वर में स्थित है और यह भगवान शिव को समर्पित सबसे पुराने मंदिरों में से एक है। (Lingaraj Temple is located in Bhubaneswar, Odisha and is one of the oldest temples dedicated to Lord Shiva.)",
+      "category": "general affairs"
     },
     {
       "q": "उज्जैन का महाकालेश्वर मंदिर किस नदी के तट पर स्थित है? (On the banks of which river is the Mahakaleshwar Temple of Ujjain situated?)",
@@ -46,7 +49,8 @@
         "चंबल (Chambal)"
       ],
       "correct": 1,
-      "rationale": "महाकालेश्वर मंदिर शिप्रा नदी के तट पर स्थित है, जो 12 ज्योतिर्लिंगों में से एक है। (Mahakaleshwar Temple is situated on the banks of the Shipra River and is one of the 12 Jyotirlingas.)"
+      "rationale": "महाकालेश्वर मंदिर शिप्रा नदी के तट पर स्थित है, जो 12 ज्योतिर्लिंगों में से एक है। (Mahakaleshwar Temple is situated on the banks of the Shipra River and is one of the 12 Jyotirlingas.)",
+      "category": "economic affairs"
     },
     {
       "q": "15 फरवरी को जन्मे गैलीलियो गैलीली को किस रूप में जाना जाता है? (Galileo Galilei, born on February 15, is known as?)",
@@ -57,7 +61,8 @@
         "उपरोक्त सभी (All of the above)"
       ],
       "correct": 3,
-      "rationale": "गैलीलियो को खगोल विज्ञान और आधुनिक भौतिकी में उनके क्रांतिकारी योगदान के लिए इन सभी उपाधियों से जाना जाता है। (Galileo is known by all these titles for his revolutionary contributions to astronomy and modern physics.)"
+      "rationale": "गैलीलियो को खगोल विज्ञान और आधुनिक भौतिकी में उनके क्रांतिकारी योगदान के लिए इन सभी उपाधियों से जाना जाता है। (Galileo is known by all these titles for his revolutionary contributions to astronomy and modern physics.)",
+      "category": "general affairs"
     },
     {
       "q": "भारत के किस राज्य में सबसे अधिक ज्योतिर्लिंग स्थित हैं? (Which state in India has the maximum number of Jyotirlingas?)",
@@ -68,7 +73,8 @@
         "उत्तर प्रदेश (Uttar Pradesh)"
       ],
       "correct": 2,
-      "rationale": "महाराष्ट्र में सबसे अधिक 3 ज्योतिर्लिंग (भीमशंकर, त्रयंबकेश्वर और घृष्णेश्वर) हैं। (Maharashtra has the maximum 3 Jyotirlingas: Bhimashankar, Trimbakeshwar, and Grishneshwar.)"
+      "rationale": "महाराष्ट्र में सबसे अधिक 3 ज्योतिर्लिंग (भीमशंकर, त्रयंबकेश्वर और घृष्णेश्वर) हैं। (Maharashtra has the maximum 3 Jyotirlingas: Bhimashankar, Trimbakeshwar, and Grishneshwar.)",
+      "category": "national affairs"
     },
     {
       "q": "द्वितीय विश्व युद्ध के दौरान 'सिंगापुर का पतन' (15 फरवरी, 1942) किस सैन्य इकाई के गठन का कारण बना? (The 'Fall of Singapore' during WWII led to the formation of which military entity?)",
@@ -79,7 +85,8 @@
         "मद्रास रेजिमेंट (The Madras Regiment)"
       ],
       "correct": 1,
-      "rationale": "ब्रिटिश आत्मसमर्पण के बाद, भारतीय युद्धबंदियों ने आज़ाद हिंद फ़ौज (INA) का गठन किया। (After the British surrender, Indian PoWs formed the Azad Hind Fauj/INA.)"
+      "rationale": "ब्रिटिश आत्मसमर्पण के बाद, भारतीय युद्धबंदियों ने आज़ाद हिंद फ़ौज (INA) का गठन किया। (After the British surrender, Indian PoWs formed the Azad Hind Fauj/INA.)",
+      "category": "national affairs"
     },
     {
       "q": "बैद्यनाथ ज्योतिर्लिंग किस भारतीय राज्य में स्थित है? (In which Indian state is the Baidyanath Jyotirlinga located?)",
@@ -90,7 +97,8 @@
         "पश्चिम बंगाल (West Bengal)"
       ],
       "correct": 1,
-      "rationale": "बैद्यनाथ मंदिर झारखंड के देवघर में स्थित है। (The Baidyanath Temple is located in Deoghar, Jharkhand.)"
+      "rationale": "बैद्यनाथ मंदिर झारखंड के देवघर में स्थित है। (The Baidyanath Temple is located in Deoghar, Jharkhand.)",
+      "category": "national affairs"
     },
     {
       "q": "सोमनाथ मंदिर पर 1024 ईस्वी में किस आक्रमणकारी ने हमला किया था? (Which invader attacked the Somnath Temple in 1024 AD?)",
@@ -101,7 +109,8 @@
         "नादिर शाह (Nadir Shah)"
       ],
       "correct": 1,
-      "rationale": "महमूद गजनवी ने भीम प्रथम के शासनकाल के दौरान 1024 ईस्वी में सोमनाथ मंदिर को लूटा था। (Mahmud of Ghazni looted the Somnath temple in 1024 AD during the reign of Bhima I.)"
+      "rationale": "महमूद गजनवी ने भीम प्रथम के शासनकाल के दौरान 1024 ईस्वी में सोमनाथ मंदिर को लूटा था। (Mahmud of Ghazni looted the Somnath temple in 1024 AD during the reign of Bhima I.)",
+      "category": "general affairs"
     },
     {
       "q": "भुवनेश्वर में लिंगराज मंदिर, जो 11वीं शताब्दी की वास्तुकला का एक उत्कृष्ट नमूना है, किस विशिष्ट क्षेत्रीय शैली में निर्मित है? (The Lingaraj Temple in Bhubaneswar, a masterpiece of 11th-century architecture, is built in which specific regional style?)",
@@ -112,7 +121,8 @@
         "पंचायतन शैली (Panchayatan Style)"
       ],
       "correct": 1,
-      "rationale": "लिंगराज मंदिर कलिंग वास्तुकला (नागर की एक उप-शैली) का सर्वोत्कृष्ट उदाहरण है, जिसमें विमान, जगमोहन, नाटमंदिर और भोग-मंडप शामिल हैं। (The Lingaraj Temple is the quintessential example of Kalinga architecture (a sub-style of Nagara), featuring the Vimana, Jagamohana, Natamandira, and Bhoga-mandapa.)"
+      "rationale": "लिंगराज मंदिर कलिंग वास्तुकला (नागर की एक उप-शैली) का सर्वोत्कृष्ट उदाहरण है, जिसमें विमान, जगमोहन, नाटमंदिर और भोग-मंडप शामिल हैं। (The Lingaraj Temple is the quintessential example of Kalinga architecture (a sub-style of Nagara), featuring the Vimana, Jagamohana, Natamandira, and Bhoga-mandapa.)",
+      "category": "general affairs"
     },
     {
       "q": "उज्जैन में महाकालेश्वर ज्योतिर्लिंग 12 ज्योतिर्लिंगों में अद्वितीय है क्योंकि इसकी मूर्ति 'दक्षिणमुखी' है। इस शब्द का क्या अर्थ है? (Mahakaleshwar Jyotirlinga in Ujjain is unique among the 12 Jyotirlingas because its idol is 'Dakshinamukhi'. What does this term mean?)",
@@ -123,7 +133,8 @@
         "उत्तर की ओर मुख (Facing the North)"
       ],
       "correct": 2,
-      "rationale": "महाकालेश्वर एकमात्र ज्योतिर्लिंग है जिसका मुख दक्षिण (यम की दिशा) की ओर है, जो समय और मृत्यु के स्वामी 'महाकाल' के रूप में शिव की भूमिका का प्रतीक है। (Mahakaleshwar is the only Jyotirlinga that faces South (direction of Yama), symbolizing Shiva's role as 'Mahakaal'—the master of time and death.)"
+      "rationale": "महाकालेश्वर एकमात्र ज्योतिर्लिंग है जिसका मुख दक्षिण (यम की दिशा) की ओर है, जो समय और मृत्यु के स्वामी 'महाकाल' के रूप में शिव की भूमिका का प्रतीक है। (Mahakaleshwar is the only Jyotirlinga that faces South (direction of Yama), symbolizing Shiva's role as 'Mahakaal'—the master of time and death.)",
+      "category": "general affairs"
     },
     {
       "q": "'भस्म आरती' (राख का अनुष्ठान) एक विश्व प्रसिद्ध दैनिक अनुष्ठान है जो किस मंदिर में किया जाता है? (The 'Bhasma Aarti' (Ash Ritual) is a world-famous daily ritual performed at which temple?)",
@@ -134,7 +145,8 @@
         "केदारनाथ मंदिर, उत्तराखंड (Kedarnath Temple, Uttarakhand)"
       ],
       "correct": 2,
-      "rationale": "भस्म आरती एक अनूठा अनुष्ठान है जो केवल उज्जैन के महाकालेश्वर मंदिर में किया जाता है, जहाँ देवता की पूजा पवित्र राख से की जाती है। (The Bhasma Aarti is a unique ritual performed only at the Mahakaleshwar Temple in Ujjain, where the deity is worshipped with sacred ash.)"
+      "rationale": "भस्म आरती एक अनूठा अनुष्ठान है जो केवल उज्जैन के महाकालेश्वर मंदिर में किया जाता है, जहाँ देवता की पूजा पवित्र राख से की जाती है। (The Bhasma Aarti is a unique ritual performed only at the Mahakaleshwar Temple in Ujjain, where the deity is worshipped with sacred ash.)",
+      "category": "international affairs"
     },
     {
       "q": "लिंगराज मंदिर का निर्माण मुख्य रूप से किस राजवंश के शासकों द्वारा कराया गया था? (The Lingaraj Temple was primarily constructed by rulers of which dynasty?)",
@@ -145,7 +157,8 @@
         "पल्लव राजवंश (Pallava Dynasty)"
       ],
       "correct": 1,
-      "rationale": "इसका निर्माण सोमवंशी राजा जजाति केशरी के शासनकाल में शुरू हुआ और बाद के शासकों द्वारा पूरा किया गया। (Construction began under the Somavamsi king Jajati Keshari and was completed by later rulers.)"
+      "rationale": "इसका निर्माण सोमवंशी राजा जजाति केशरी के शासनकाल में शुरू हुआ और बाद के शासकों द्वारा पूरा किया गया। (Construction began under the Somavamsi king Jajati Keshari and was completed by later rulers.)",
+      "category": "general affairs"
     },
     {
       "q": "मध्य प्रदेश राज्य में कितने ज्योतिर्लिंग स्थित हैं? (How many Jyotirlingas are located in the state of Madhya Pradesh?)",
@@ -156,7 +169,8 @@
         "चार (Four)"
       ],
       "correct": 1,
-      "rationale": "मध्य प्रदेश में दो ज्योतिर्लिंग हैं: उज्जैन में महाकालेश्वर और नर्मदा नदी में मांधाता द्वीप पर ओंकारेश्वर। (Madhya Pradesh is home to two Jyotirlingas: Mahakaleshwar in Ujjain and Omkareshwar on Mandhata island in the Narmada River.)"
+      "rationale": "मध्य प्रदेश में दो ज्योतिर्लिंग हैं: उज्जैन में महाकालेश्वर और नर्मदा नदी में मांधाता द्वीप पर ओंकारेश्वर। (Madhya Pradesh is home to two Jyotirlingas: Mahakaleshwar in Ujjain and Omkareshwar on Mandhata island in the Narmada River.)",
+      "category": "national affairs"
     }
   ]
 }

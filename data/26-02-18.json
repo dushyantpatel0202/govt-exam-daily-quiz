@@ -13,7 +13,8 @@
         "324"
       ],
       "correct": 1,
-      "rationale": "भारतीय संविधान का अनुच्छेद 368 संसद को संविधान में संशोधन करने की शक्ति प्रदान करता है। (Article 368 of the Constitution provides the procedure for amendments.)"
+      "rationale": "भारतीय संविधान का अनुच्छेद 368 संसद को संविधान में संशोधन करने की शक्ति प्रदान करता है। (Article 368 of the Constitution provides the procedure for amendments.)",
+      "category": "national affairs"
     },
     {
       "q": "101वां संशोधन किससे संबंधित है? (The 101st Amendment is related to:)",
@@ -24,7 +25,8 @@
         "Anti-Defection"
       ],
       "correct": 1,
-      "rationale": "101वें संवैधानिक संशोधन अधिनियम, 2016 के माध्यम से भारत में वस्तु एवं सेवा कर (GST) लागू किया गया था। (The 101st Amendment Act, 2016 introduced the Goods and Services Tax (GST).)"
+      "rationale": "101वें संवैधानिक संशोधन अधिनियम, 2016 के माध्यम से भारत में वस्तु एवं सेवा कर (GST) लागू किया गया था। (The 101st Amendment Act, 2016 introduced the Goods and Services Tax (GST).)",
+      "category": "economic affairs"
     },
     {
       "q": "ब्रह्मपुत्र का उद्गम कहाँ होता है? (Brahmaputra originates in:)",
@@ -35,7 +37,8 @@
         "India"
       ],
       "correct": 2,
-      "rationale": "ब्रह्मपुत्र नदी का उद्गम तिब्बत में मानसरोवर झील के पास चेमायुंगडुंग ग्लेशियर से होता है। (The Brahmaputra river originates in the Chemayungdung glacier in Tibet.)"
+      "rationale": "ब्रह्मपुत्र नदी का उद्गम तिब्बत में मानसरोवर झील के पास चेमायुंगडुंग ग्लेशियर से होता है। (The Brahmaputra river originates in the Chemayungdung glacier in Tibet.)",
+      "category": "general affairs"
     },
     {
       "q": "बांग्लादेश में ब्रह्मपुत्र को क्या कहा जाता है? (In Bangladesh, Brahmaputra is called:)",
@@ -46,7 +49,8 @@
         "Teesta"
       ],
       "correct": 2,
-      "rationale": "जब ब्रह्मपुत्र नदी बांग्लादेश में प्रवेश करती है, तो इसे जमुना नदी के नाम से जाना जाता है। (When the Brahmaputra enters Bangladesh, it is known as the Jamuna River.)"
+      "rationale": "जब ब्रह्मपुत्र नदी बांग्लादेश में प्रवेश करती है, तो इसे जमुना नदी के नाम से जाना जाता है। (When the Brahmaputra enters Bangladesh, it is known as the Jamuna River.)",
+      "category": "general affairs"
     },
     {
       "q": "ग्लोबल फायरपावर इंडेक्स 2026 में भारत की रैंक क्या है? (What is India's rank in the Global Firepower Index 2026?)",
@@ -57,7 +61,8 @@
         "6th"
       ],
       "correct": 1,
-      "rationale": "सैन्य शक्ति के मामले में भारत विश्व स्तर पर चौथे स्थान पर बरकरार है। (India is ranked 4th in the Global Firepower Index 2026.)"
+      "rationale": "सैन्य शक्ति के मामले में भारत विश्व स्तर पर चौथे स्थान पर बरकरार है। (India is ranked 4th in the Global Firepower Index 2026.)",
+      "category": "international affairs"
     },
     {
       "q": "हेनले पासपोर्ट इंडेक्स 2026 में भारत की रैंक क्या है? (What is India's rank in the Henley Passport Index 2026?)",
@@ -68,7 +73,8 @@
         "85"
       ],
       "correct": 2,
-      "rationale": "वर्ष 2026 के लिए हेनले पासपोर्ट इंडेक्स में भारत को 80वें स्थान पर रखा गया है। (India is ranked 80th in the Henley Passport Index 2026.)"
+      "rationale": "वर्ष 2026 के लिए हेनले पासपोर्ट इंडेक्स में भारत को 80वें स्थान पर रखा गया है। (India is ranked 80th in the Henley Passport Index 2026.)",
+      "category": "national affairs"
     },
     {
       "q": "Bodhan AI किसके द्वारा होस्ट किया गया है? (Bodhan AI is hosted by:)",
@@ -79,7 +85,8 @@
         "IISc"
       ],
       "correct": 2,
-      "rationale": "बोधन एआई (Bodhan AI) प्लेटफॉर्म को आईआईटी मद्रास द्वारा होस्ट और विकसित किया गया है। (Bodhan AI is an initiative hosted by IIT Madras.)"
+      "rationale": "बोधन एआई (Bodhan AI) प्लेटफॉर्म को आईआईटी मद्रास द्वारा होस्ट और विकसित किया गया है। (Bodhan AI is an initiative hosted by IIT Madras.)",
+      "category": "general affairs"
     },
     {
       "q": "एशियाई राइफल/पिस्तौल चैंपियनशिप 2026 में भारत ने कुल कितने पदक जीते? (How many total medals did India win at the Asian Rifle/Pistol Championship 2026?)",
@@ -90,7 +97,8 @@
         "104"
       ],
       "correct": 2,
-      "rationale": "भारत ने एशियाई राइफल/पिस्तौल चैंपियनशिप 2026 में शानदार प्रदर्शन करते हुए कुल 94 पदक जीते। (India won a total of 94 medals at the Asian Rifle/Pistol Championship 2026.)"
+      "rationale": "भारत ने एशियाई राइफल/पिस्तौल चैंपियनशिप 2026 में शानदार प्रदर्शन करते हुए कुल 94 पदक जीते। (India won a total of 94 medals at the Asian Rifle/Pistol Championship 2026.)",
+      "category": "national affairs"
     },
     {
       "q": "शहरी चुनौती कोष (Urban Challenge Fund) किस मंत्रालय के तहत स्वीकृत किया गया था? (Urban Challenge Fund was approved under which Ministry?)",
@@ -101,7 +109,8 @@
         "Commerce"
       ],
       "correct": 1,
-      "rationale": "यह फंड आवास और शहरी मामलों के मंत्रालय (MoHUA) के अंतर्गत आता है। (The fund is under the Ministry of Housing and Urban Affairs.)"
+      "rationale": "यह फंड आवास और शहरी मामलों के मंत्रालय (MoHUA) के अंतर्गत आता है। (The fund is under the Ministry of Housing and Urban Affairs.)",
+      "category": "general affairs"
     },
     {
       "q": "विश्व रेडियो दिवस कब मनाया जाता है? (World Radio Day is observed on:)",
@@ -112,7 +121,8 @@
         "14 Feb"
       ],
       "correct": 2,
-      "rationale": "रेडियो के महत्व को रेखांकित करने के लिए हर साल 13 फरवरी को विश्व रेडियो दिवस मनाया जाता है। (World Radio Day is celebrated on February 13.)"
+      "rationale": "रेडियो के महत्व को रेखांकित करने के लिए हर साल 13 फरवरी को विश्व रेडियो दिवस मनाया जाता है। (World Radio Day is celebrated on February 13.)",
+      "category": "international affairs"
     }
   ]
 }

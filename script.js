@@ -127,9 +127,20 @@ function formatLocalISODate(date) {
 }
 
 async function fetchQuizDataByDate(selectedDate) {
+    const localUrl = `./data/${getFilenameFromDate(selectedDate)}`;
+
     try {
-        const filename = getFilenameFromDate(selectedDate);
-        const response = await fetch(`./data/${filename}`, { cache: 'no-store' });
+        const isLocalHost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+        const apiBase = isLocalHost ? 'http://localhost:5000' : '';
+        const apiResponse = await fetch(`${apiBase}/api/quiz/${selectedDate}`, { cache: 'no-store' });
+        if (apiResponse.ok) {
+            return await apiResponse.json();
+        }
+    } catch (error) {
+    }
+
+    try {
+        const response = await fetch(localUrl, { cache: 'no-store' });
         if (!response.ok) return null;
         return await response.json();
     } catch (error) {
@@ -1362,14 +1373,18 @@ function analyzeTopics() {
     
     currentQuiz.questions.forEach((question, index) => {
         // Determine topic
-        let topic = 'General';
-        for (const [category, keywords] of Object.entries(QUIZ_CATEGORIES)) {
-            if (keywords.some(keyword => 
-                question.q.toLowerCase().includes(keyword.toLowerCase()) || 
-                (question.rationale && question.rationale.toLowerCase().includes(keyword.toLowerCase()))
-            )) {
-                topic = category;
-                break;
+        let topic = String(question.category || '').trim();
+
+        if (!topic) {
+            topic = 'General Affairs';
+            for (const [category, keywords] of Object.entries(QUIZ_CATEGORIES)) {
+                if (keywords.some(keyword => 
+                    question.q.toLowerCase().includes(keyword.toLowerCase()) || 
+                    (question.rationale && question.rationale.toLowerCase().includes(keyword.toLowerCase()))
+                )) {
+                    topic = category;
+                    break;
+                }
             }
         }
         
