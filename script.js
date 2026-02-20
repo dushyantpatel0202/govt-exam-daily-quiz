@@ -11,6 +11,7 @@ let timerInterval = null;
 let secondsElapsed = 0;
 let isTimerRunning = false;
 let hintUsed = false;
+let quizCompleted = false;
 let userPerformance = {
     strengths: [],
     weaknesses: [],
@@ -28,6 +29,37 @@ const pdfReviewHeadingFontSize = 12;
 const pdfReviewHeadingNudge = -8;
 const pdfOptionVNudge = -6;
 const pdfExplanationVNudge = -6;
+
+function applyDarkMode(isDarkMode) {
+    document.body.classList.toggle('dark-mode', isDarkMode);
+
+    const toggleButton = document.getElementById('dark-mode-toggle');
+    if (toggleButton) {
+        toggleButton.innerText = isDarkMode ? '☀️' : '🌙';
+        toggleButton.setAttribute('aria-label', isDarkMode ? 'Switch to light mode' : 'Switch to dark mode');
+        toggleButton.setAttribute('title', isDarkMode ? 'Switch to light mode' : 'Switch to dark mode');
+    }
+}
+
+function toggleDarkMode() {
+    const isCurrentlyDark = document.body.classList.contains('dark-mode');
+    const nextModeIsDark = !isCurrentlyDark;
+    applyDarkMode(nextModeIsDark);
+    localStorage.setItem('quizDarkMode', nextModeIsDark ? 'dark' : 'light');
+}
+
+function initializeDarkMode() {
+    const savedMode = localStorage.getItem('quizDarkMode');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const shouldUseDarkMode = savedMode ? savedMode === 'dark' : prefersDark;
+
+    applyDarkMode(shouldUseDarkMode);
+
+    const toggleButton = document.getElementById('dark-mode-toggle');
+    if (toggleButton) {
+        toggleButton.addEventListener('click', toggleDarkMode);
+    }
+}
 
 // Quiz categories for analysis
 const QUIZ_CATEGORIES = {
@@ -51,6 +83,31 @@ function formatDisplayDate(dateString) {
         month: 'long',
         day: 'numeric'
     });
+}
+
+function updateDatePickerButtonLabel(dateString) {
+    const dateLabel = document.getElementById('quiz-date-label');
+    if (!dateLabel) return;
+
+    if (!dateString) {
+        dateLabel.innerText = 'Select Quiz Date';
+        return;
+    }
+
+    dateLabel.innerText = formatDisplayDate(dateString);
+}
+
+function openDatePicker() {
+    const dateInput = document.getElementById('quiz-date');
+    if (!dateInput) return;
+
+    if (typeof dateInput.showPicker === 'function') {
+        dateInput.showPicker();
+        return;
+    }
+
+    dateInput.focus();
+    dateInput.click();
 }
 
 function formatShortDate(dateString) {
@@ -111,10 +168,34 @@ async function getLastAvailableQuizDates(fromDate, count = 4) {
     return results;
 }
 
+async function getNextAvailableQuizDate(fromDate, maxLookAheadDays = 365) {
+    const startDate = new Date(`${fromDate}T00:00:00`);
+    if (Number.isNaN(startDate.getTime())) {
+        return null;
+    }
+
+    const cursor = new Date(startDate);
+    cursor.setDate(cursor.getDate() + 1);
+
+    let attempts = 0;
+    while (attempts < maxLookAheadDays) {
+        const isoDate = formatLocalISODate(cursor);
+        const quizData = await fetchQuizDataByDate(isoDate);
+        if (quizData) {
+            return isoDate;
+        }
+        cursor.setDate(cursor.getDate() + 1);
+        attempts++;
+    }
+
+    return null;
+}
+
 function playQuizForDate(dateString) {
     const dateInput = document.getElementById('quiz-date');
     if (dateInput) {
         dateInput.value = dateString;
+        updateDatePickerButtonLabel(dateString);
     }
     hideUnavailableSection();
     loadQuizByDate();
@@ -131,15 +212,35 @@ async function showUnavailableSection(selectedDate) {
     const contentSection = document.getElementById('content-section');
     if (contentSection) contentSection.classList.add('hidden');
 
-    if (unavailableMessage) {
-        unavailableMessage.innerText = `We will be uploading soon for ${formatDisplayDate(selectedDate)}.`;
-    }
-
     if (quickButtonsContainer) {
         quickButtonsContainer.innerHTML = '<p class="text-sm text-gray-500">Checking recent quizzes...</p>';
         const recentDates = await getLastAvailableQuizDates(selectedDate, 4);
+        const nextAvailableDate = await getNextAvailableQuizDate(selectedDate, 365);
 
-        if (!recentDates.length) {
+        if (unavailableMessage) {
+            if (!recentDates.length && nextAvailableDate) {
+                unavailableMessage.innerText = `Quiz and content started on ${formatDisplayDate(nextAvailableDate)}. Content and quiz are not available before this date.`;
+            } else {
+                const today = formatLocalISODate(new Date());
+                if (selectedDate === today) {
+                    unavailableMessage.innerText = 'Quiz available soon for today.';
+                } else {
+                    unavailableMessage.innerText = `Quiz available soon for ${formatDisplayDate(selectedDate)}.`;
+                }
+            }
+        }
+
+        if (!recentDates.length && nextAvailableDate) {
+            quickButtonsContainer.innerHTML = `
+                <p class="text-sm text-gray-500 mb-3">Quiz and content started from this date:</p>
+                <button
+                    onclick="playQuizForDate('${nextAvailableDate}')"
+                    class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-medium px-4 py-2 rounded-lg transition-all"
+                >
+                    ▶ Play ${formatShortDate(nextAvailableDate)}
+                </button>
+            `;
+        } else if (!recentDates.length) {
             quickButtonsContainer.innerHTML = '<p class="text-sm text-gray-500">No recent quizzes found.</p>';
         } else {
             quickButtonsContainer.innerHTML = recentDates.map((dateString) => `
@@ -178,6 +279,7 @@ async function loadQuizByDate() {
         if (contentSection) contentSection.classList.add('hidden');
         
         // Reset quiz state
+        quizCompleted = false;
         currentQuiz = quizData;
         currentQuestionIndex = 0;
         score = 0;
@@ -227,6 +329,12 @@ async function loadQuizByDate() {
 
 // Show content section
 async function showContent() {
+    if (quizCompleted) {
+        const contentSection = document.getElementById('content-section');
+        if (contentSection) contentSection.classList.add('hidden');
+        return;
+    }
+
     const selectedDate = document.getElementById('quiz-date').value;
     
     if (!selectedDate) {
@@ -278,9 +386,9 @@ async function showContent() {
                 });
                 
                 contentHTML += `
-                    <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-6 rounded-xl">
+                    <div class="study-meta">
                         <h3 class="text-2xl font-bold mb-2">📚 Study Material for ${formattedDate}</h3>
-                        <p class="text-purple-100">Category: ${quizData.category || 'Current Affairs'} | Difficulty: ${quizData.difficulty || 'Medium'}</p>
+                        <p class="text-sm">Category: ${quizData.category || 'Current Affairs'} | Difficulty: ${quizData.difficulty || 'Medium'}</p>
                     </div>
                 `;
                 
@@ -314,9 +422,9 @@ async function showContent() {
                 // Display topics and their questions
                 for (const [topic, questions] of Object.entries(topics)) {
                     contentHTML += `
-                        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all">
-                            <h4 class="font-semibold text-lg text-purple-800 mb-3 flex items-center">
-                                <span class="bg-purple-100 p-1 rounded-lg mr-2">📌</span>
+                        <div class="bg-white p-5 rounded-xl border border-gray-200">
+                            <h4 class="font-semibold text-lg text-gray-900 mb-3 flex items-center">
+                                <span class="bg-indigo-100 p-1 rounded-lg mr-2">📌</span>
                                 ${topic}
                             </h4>
                             <div class="space-y-4">
@@ -329,21 +437,21 @@ async function showContent() {
                         const correctLetter = String.fromCharCode(65 + correctIndex);
                         
                         contentHTML += `
-                            <div class="border-l-4 border-purple-400 pl-4 py-2">
+                            <div class="study-question">
                                 <p class="font-medium text-gray-800 mb-2">${idx + 1}. ${q.q}</p>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 ml-4 mb-2">
+                                <div class="space-y-2 mb-2">
                                     ${q.options.map((opt, optIdx) => {
                                         const letter = String.fromCharCode(65 + optIdx);
                                         const isCorrect = optIdx === correctIndex;
-                                        return `<div class="text-sm ${isCorrect ? 'text-green-600 font-medium' : 'text-gray-600'}">
+                                        return `<div class="study-option ${isCorrect ? 'correct' : ''}">
                                             ${letter}. ${opt} ${isCorrect ? '✓' : ''}
                                         </div>`;
                                     }).join('')}
                                 </div>
                                 ${q.rationale ? `
-                                    <div class="text-sm bg-blue-50 p-3 rounded-lg mt-2">
+                                    <div class="study-explanation text-sm">
                                         <span class="font-medium text-blue-700">📝 Explanation:</span>
-                                        <span class="text-gray-700"> ${q.rationale}</span>
+                                        <span> ${q.rationale}</span>
                                     </div>
                                 ` : ''}
                             </div>
@@ -358,8 +466,8 @@ async function showContent() {
                 
                 // Quiz overview
                 contentHTML += `
-                    <div class="bg-indigo-50 p-5 rounded-xl border border-indigo-200 mt-6">
-                        <h4 class="font-semibold text-indigo-800 mb-3 flex items-center">
+                    <div class="study-meta mt-6">
+                        <h4 class="font-semibold text-gray-900 mb-3 flex items-center">
                             <span class="bg-indigo-100 p-1 rounded-lg mr-2">📊</span>
                             Quiz Overview
                         </h4>
@@ -420,6 +528,7 @@ function startQuizFromContent() {
     if (contentSection) contentSection.classList.add('hidden');
     
     // Reset quiz state
+    quizCompleted = false;
     currentQuestionIndex = 0;
     score = 0;
     totalQuestions = currentQuiz.questions.length;
@@ -843,6 +952,7 @@ function updateProgress() {
 
 // End quiz and show results
 function endQuiz() {
+    quizCompleted = true;
     updateProgressData();
     
     // Stop timer
@@ -852,6 +962,9 @@ function endQuiz() {
     // Hide quiz container
     const quizContainer = document.getElementById('quiz-container');
     if (quizContainer) quizContainer.classList.add('hidden');
+
+    const contentSection = document.getElementById('content-section');
+    if (contentSection) contentSection.classList.add('hidden');
     
     // Calculate statistics
     const correctAnswers = selectedAnswers.filter((ans, idx) => {
@@ -1466,8 +1579,9 @@ async function downloadReviewAsPDF() {
     }
 
     const { jsPDF } = window.jspdf;
-    const renderScale = Math.min(4, Math.max(3, Math.ceil(window.devicePixelRatio || 1) * 2));
-    const imageFormat = 'PNG';
+    const renderScale = 1.35;
+    const imageFormat = 'JPEG';
+    const imageQuality = 0.6;
 
     const renderContainer = document.createElement('div');
     renderContainer.style.position = 'fixed';
@@ -1484,7 +1598,13 @@ async function downloadReviewAsPDF() {
     try {
         showToast('📄 Preparing PDF...');
 
-        const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+        const doc = new jsPDF({
+            unit: 'mm',
+            format: 'a4',
+            compress: true,
+            putOnlyUsedFonts: true,
+            precision: 12
+        });
         const margin = 10;
         const pageWidth = doc.internal.pageSize.getWidth();
         const pageHeight = doc.internal.pageSize.getHeight();
@@ -1525,12 +1645,12 @@ async function downloadReviewAsPDF() {
                 const drawWidth = usableWidth * scaleToFit;
                 const drawHeight = sectionHeightMm * scaleToFit;
                 const xOffset = margin + ((usableWidth - drawWidth) / 2);
-                const imgData = sectionCanvas.toDataURL('image/png');
+                const imgData = sectionCanvas.toDataURL('image/jpeg', imageQuality);
 
                 doc.addImage(imgData, imageFormat, xOffset, currentY, drawWidth, drawHeight);
                 currentY += drawHeight + 3;
             } else {
-                const imgData = sectionCanvas.toDataURL('image/png');
+                const imgData = sectionCanvas.toDataURL('image/jpeg', imageQuality);
                 doc.addImage(imgData, imageFormat, margin, currentY, usableWidth, sectionHeightMm);
                 currentY += sectionHeightMm + 3;
             }
@@ -1660,7 +1780,7 @@ function buildReviewHTMLForPDF() {
                 <div style="font-size:14px;color:#e0e7ff;">Performance summary and question-wise explanations</div>
             </div>
 
-            <div style="background:#ffffff;border:1px solid #e5e7eb;border-radius:16px;padding:20px;margin-bottom:14px;">
+            <div style="background:#ffffff;border:1px solid #e5e7eb;border-radius:16px;padding:20px;margin-bottom:6px;">
                 <div style="font-size:14px;color:#374151;line-height:1.8;">
                     <div><strong>Date:</strong> ${escapeHtml(dateValue)}</div>
                     <div><strong>Score:</strong> ${correctAnswers}/${currentQuiz.questions.length}</div>
@@ -1669,9 +1789,6 @@ function buildReviewHTMLForPDF() {
                 </div>
             </div>
 
-            <div style="font-size:${pdfReviewHeadingFontSize}px;font-weight:700;line-height:1;height:36px;padding:0 14px;margin:8px 0 10px;background:#eef2ff;border:1px solid #c7d2fe;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;text-align:center;">
-                <span style="display:block;position:relative;top:${pdfReviewHeadingNudge}px;">Question-wise Review</span>
-            </div>
             ${questionBlocks}
         </div>
     `;
@@ -1696,6 +1813,8 @@ function showToast(message, type = 'success') {
 
 // Initialize on page load
 window.addEventListener('DOMContentLoaded', () => {
+    initializeDarkMode();
+
     // Set default date to today
     const today = new Date();
     const year = today.getFullYear();
@@ -1703,9 +1822,37 @@ window.addEventListener('DOMContentLoaded', () => {
     const day = String(today.getDate()).padStart(2, '0');
     
     const dateInput = document.getElementById('quiz-date');
+    const dateButton = document.getElementById('quiz-date-button');
+
+    if (dateButton) {
+        dateButton.addEventListener('click', openDatePicker);
+    }
+
     if (dateInput) {
         dateInput.value = `${year}-${month}-${day}`;
-        dateInput.addEventListener('change', hideUnavailableSection);
+        updateDatePickerButtonLabel(dateInput.value);
+        dateInput.addEventListener('change', async () => {
+            updateDatePickerButtonLabel(dateInput.value);
+
+            if (!quizCompleted) {
+                showContent();
+                return;
+            }
+
+            const selectedDate = dateInput.value;
+            if (!selectedDate) return;
+
+            const quizData = await fetchQuizDataByDate(selectedDate);
+            if (!quizData) {
+                await showUnavailableSection(selectedDate);
+                return;
+            }
+
+            hideUnavailableSection();
+            const contentSection = document.getElementById('content-section');
+            if (contentSection) contentSection.classList.add('hidden');
+        });
+        showContent();
     }
 });
 
