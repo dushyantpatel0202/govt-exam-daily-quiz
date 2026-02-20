@@ -38,6 +38,7 @@
                 <button id="sample-btn" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold px-4 py-2.5 rounded-xl">Insert Sample</button>
                 <button id="validate-btn" class="bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold px-4 py-2.5 rounded-xl">Validate JSON</button>
                 <button id="health-btn" class="bg-blue-100 hover:bg-blue-200 text-blue-700 font-semibold px-4 py-2.5 rounded-xl">Backend Health Check</button>
+                <button id="start-backend-btn" class="bg-amber-100 hover:bg-amber-200 text-amber-800 font-semibold px-4 py-2.5 rounded-xl">Copy Run Backend Command</button>
                 <button id="upload-btn" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2.5 rounded-xl">Upload Quiz</button>
             </div>
 
@@ -144,7 +145,17 @@
 
                 setStatus(`Backend connected: ${apiBase}`, 'success');
             } catch (error) {
-                setStatus(`Backend not reachable: ${error.message}`, 'error');
+                setStatus(`Backend not reachable: ${error.message}. Run backend with: cd backend && npm run dev`, 'error');
+            }
+        });
+
+        document.getElementById('start-backend-btn').addEventListener('click', async () => {
+            const command = 'cd backend && npm run dev';
+            try {
+                await navigator.clipboard.writeText(command);
+                setStatus('Backend start command copied. Open terminal at project root and run: cd backend && npm run dev', 'success');
+            } catch (error) {
+                setStatus(`Run this command in terminal: ${command}`, 'info');
             }
         });
     </script>

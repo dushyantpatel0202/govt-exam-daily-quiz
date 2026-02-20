@@ -129,14 +129,20 @@ function formatLocalISODate(date) {
 async function fetchQuizDataByDate(selectedDate) {
     const localUrl = `./data/${getFilenameFromDate(selectedDate)}`;
 
-    try {
-        const isLocalHost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-        const apiBase = isLocalHost ? 'http://localhost:5000' : '';
-        const apiResponse = await fetch(`${apiBase}/api/quiz/${selectedDate}`, { cache: 'no-store' });
-        if (apiResponse.ok) {
-            return await apiResponse.json();
+    const apiCandidates = ['http://localhost:5000', ''];
+
+    for (const apiBase of apiCandidates) {
+        if (!apiBase && window.location.protocol === 'file:') {
+            continue;
         }
-    } catch (error) {
+
+        try {
+            const apiResponse = await fetch(`${apiBase}/api/quiz/${selectedDate}`, { cache: 'no-store' });
+            if (apiResponse.ok) {
+                return await apiResponse.json();
+            }
+        } catch (error) {
+        }
     }
 
     try {
